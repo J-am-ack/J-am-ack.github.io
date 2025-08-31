@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'zh-CN' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title | default: site.title }} | {{ site.description }}</title>
+  <!-- 加载 Minima 主题默认样式（确保不缺样式） -->
+  <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
+  <!-- 加载 Font Awesome 图标（用于统计、按钮等，美观不占空间） -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <style>
+    /* 自定义美化样式（适配卡片、响应式布局） */
+    :root {
+      --primary-color: #2c3e50; /* 主色调：深蓝灰 */
+      --secondary-color: #3498db; /* 辅助色：蓝色（按钮/链接） */
+      --light-gray: #f8f9fa; /* 卡片背景色 */
+      --text-color: #333; /* 文字颜色 */
+      --shadow: 0 2px 8px rgba(0,0,0,0.1); /* 卡片阴影 */
+    }
+    body {
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+      color: var(--text-color);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    /* 头部导航栏 */
+    .site-header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1.5rem 0;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .site-title {
+      font-size: 2.2rem;
+      margin: 0;
+    }
+    .site-description {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-top: 0.5rem;
+    }
+    /* 容器（控制内容宽度，避免太宽） */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    /* 统计卡片区域（文章数、分类数） */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap; /* 手机上自动换行 */
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    .stat-card {
+      background-color: var(--light-gray);
+      padding: 1.5rem 2rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      min-width: 120px;
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--secondary-color);
+      margin: 0.5rem 0;
+    }
+    .stat-label {
+      font-size: 0.95rem;
+      color: #666;
+    }
+    /* 文章列表卡片 */
+    .posts-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* 自动分栏，最小350px */
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    .post-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .post-card:hover {
+      transform: translateY(-5px); /* 鼠标悬浮时轻微上移 */
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+    /* 文章封面图（可选，没有图会显示默认背景） */
+    .post-cover {
+      height: 180px;
+      background-color: var(--light-gray);
+      background-size: cover;
+      background-position: center;
+    }
+    /* 文章内容区域 */
+    .post-content {
+      padding: 1.5rem;
+    }
+    .post-date {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+    .post-date i {
+      margin-right: 0.3rem;
+      color: var(--secondary-color);
+    }
+    .post-title {
+      font-size: 1.3rem;
+      margin: 0 0 1rem 0;
+    }
+    .post-title a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    .post-title a:hover {
+      color: var(--secondary-color);
+      text-decoration: underline;
+    }
+    .post-excerpt {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 1.2rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3; /* 只显示3行摘要，超出省略 */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    /* 阅读更多按钮 */
+    .read-more {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background-color: var(--secondary-color);
+      color: white;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background-color 0.3s ease;
+    }
+    .read-more:hover {
+      background-color: #2980b9; /* 按钮 hover 时加深颜色 */
+      color: white;
+    }
+    /* 底部版权信息 */
+    .site-footer {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 1.5rem 0;
+      margin-top: 4rem;
+    }
+    .footer-text {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+    /* 响应式适配（手机端） */
+    @media (max-width: 768px) {
+      .posts-list {
+        grid-template-columns: 1fr; /* 手机上只显示1列 */
+      }
+      .site-title {
+        font-size: 1.8rem;
+      }
+      .stats {
+        gap: 1rem;
+      }
+      .stat-card {
+        padding: 1rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 头部导航栏 -->
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title">{{ site.title }}</h1>
+      <p class="site-description">{{ site.description }}</p>
+    </div>
+  </header>
+
+  <!-- 主要内容区域 -->
+  <main class="container">
+    <!-- 统计卡片（文章数、分类数） -->
+    <section class="stats">
+      <div class="stat-card">
+        <i class="fa fa-file-text-o" aria-hidden="true" style="font-size: 1.5rem; color: var(--secondary-color);"></i>
+        <div class="stat-number">{{ site.posts.size }}</div>
+        <div class="stat-label">篇文章</div>
+      </div>
+      <div class="stat-card">
+        <i class="fa fa-folder-open-o" aria-hidden="true" style="font-size: 1.5rem; color: var(--secondary-color);"></i>
+        <div class="stat-number">{{ site.categories.size }}</div>
+        <div class="stat-label">个分类</div>
+      </div>
+      <div class="stat-card">
+        <i class="fa fa-calendar-o" aria-hidden="true" style="font-size: 1.5rem; color: var(--secondary-color);"></i>
+        <div class="stat-number">{{ site.posts.first.date | date: "%Y" }}</div>
+        <div class="stat-label">年开始</div>
+      </div>
+    </section>
+
+    <!-- 文章列表卡片 -->
+    <section class="posts-list">
+      {% if site.posts.size > 0 %}
+        {% for post in site.posts %}
+          <article class="post-card">
+            <!-- 文章封面图（如果文章 Front Matter 中有 cover 字段，就显示；没有就显示默认色） -->
+            <div class="post-cover" 
+                style="background-image: url('{{ post.cover | escape }}')">
+            </div>
+            <div class="post-content">
+              <div class="post-date">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                {{ post.date | date: "%Y年%m月%d日" }}
+                {% if post.category %}
+                  <span style="margin: 0 0.5rem;">|</span>
+                  <i class="fa fa-folder-o" aria-hidden="true"></i>
+                  {{ post.category }}
+                {% endif %}
+              </div>
+              <h2 class="post-title">
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              </h2>
+              <p class="post-excerpt">
+                {{ post.excerpt | strip_html }} <!-- 去除 HTML 标签，只保留纯文字摘要 -->
+              </p>
+              <a href="{{ post.url | relative_url }}" class="read-more">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i> 阅读更多
+              </a>
+            </div>
+          </article>
+        {% endfor %}
+      {% else %}
+        <!-- 没有文章时显示的提示 -->
+        <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 0; color: #666;">
+          <i class="fa fa-bookmark-o" aria-hidden="true" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+          <h3>暂无文章</h3>
+          <p>快去 <code>_posts</code> 目录创建你的第一篇文章吧！</p>
+        </div>
+      {% endif %}
+    </section>
+  </main>
+
+  <!-- 底部版权信息 -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">
+        © {{ site.time | date: "%Y" }} {{ site.title }} | 
+        <a href="{{ site.url | default: '#' }}" style="color: white; opacity: 1; text-decoration: underline;">
+          {{ site.url | default: '我的博客' }}
+        </a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

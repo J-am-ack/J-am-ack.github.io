@@ -1,0 +1,67 @@
+---
+layout: default
+title: Jam’s World
+---
+
+<section class="blog-list">
+  <h1 class="text-3xl font-bold mb-8">最新文章</h1>
+  
+  <!-- 分类筛选 -->
+  <div class="flex flex-wrap gap-2 mb-8">
+    <a href="/blog/" class="bg-primary text-white px-4 py-2 rounded-full text-sm">全部</a>
+    {% for category in site.categories %}
+      <a href="/blog/category/{{ category[0] }}" class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-sm">
+        {{ category[0] }}
+      </a>
+    {% endfor %}
+  </div>
+  
+  <!-- 文章列表 -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for post in paginator.posts %}
+      <article class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+        {% if post.image %}
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="w-full h-48 object-cover">
+        {% endif %}
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">{{ post.category }}</span>
+            <time class="text-gray-500 text-sm">{{ post.date | date: "%Y-%m-%d" }}</time>
+          </div>
+          <h2 class="text-xl font-semibold mb-2">
+            <a href="{{ post.url | relative_url }}" class="hover:text-primary transition-colors">
+              {{ post.title }}
+            </a>
+          </h2>
+          <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+            {{ post.excerpt | strip_html }}
+          </p>
+          <a href="{{ post.url | relative_url }}" class="text-primary text-sm hover:underline">
+            阅读全文 <i class="fa fa-arrow-right ml-1"></i>
+          </a>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+  
+  <!-- 分页 -->
+  {% if paginator.total_pages > 1 %}
+    <div class="mt-10 flex justify-center">
+      {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path | relative_url }}" class="px-4 py-2 border rounded-l-lg hover:bg-gray-50">
+          <i class="fa fa-arrow-left"></i> 上一页
+        </a>
+      {% endif %}
+      
+      <span class="px-4 py-2 border-t border-b">
+        第 {{ paginator.page }} 页 / 共 {{ paginator.total_pages }} 页
+      </span>
+      
+      {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path | relative_url }}" class="px-4 py-2 border rounded-r-lg hover:bg-gray-50">
+          下一页 <i class="fa fa-arrow-right"></i>
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+</section>

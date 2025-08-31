@@ -1,0 +1,56 @@
+---
+layout: default
+---
+
+<article class="max-w-3xl mx-auto">
+  <!-- 文章头部 -->
+  <header class="mb-10 text-center">
+    <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">{{ page.category }}</span>
+    <h1 class="text-3xl md:text-4xl font-bold mt-4 mb-3">{{ page.title }}</h1>
+    <div class="flex flex-wrap justify-center gap-4 text-gray-500 text-sm">
+      <span><i class="fa fa-calendar mr-1"></i> {{ page.date | date: "%Y年%m月%d日" }}</span>
+      <span><i class="fa fa-user mr-1"></i> {{ site.author.name }}</span>
+      <span><i class="fa fa-clock-o mr-1"></i> 阅读时间：{{ page.read_time | default: "5" }} 分钟</span>
+    </div>
+  </header>
+  
+  <!-- 文章封面图 -->
+  {% if page.image %}
+    <div class="mb-8 rounded-lg overflow-hidden shadow-md">
+      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" class="w-full h-auto">
+    </div>
+  {% endif %}
+  
+  <!-- 文章内容（Markdown渲染） -->
+  <div class="prose prose-lg max-w-none">
+    {{ content }}
+  </div>
+  
+  <!-- 标签 -->
+  {% if page.tags.size > 0 %}
+    <div class="mt-10">
+      <span class="text-gray-600 mr-2">标签：</span>
+      {% for tag in page.tags %}
+        <a href="/blog/tag/{{ tag }}" class="bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full text-sm inline-block mr-2 mb-2">
+          {{ tag }}
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+  
+  <!-- 上下篇导航 -->
+  <div class="mt-12 pt-8 border-t border-gray-200">
+    <div class="flex justify-between">
+      {% if page.previous %}
+        <a href="{{ page.previous.url | relative_url }}" class="flex items-center gap-2 text-primary hover:underline">
+          <i class="fa fa-arrow-left"></i> {{ page.previous.title }}
+        </a>
+      {% endif %}
+      {% if page.next %}
+        <a href="{{ page.next.url | relative_url }}" class="flex items-center gap-2 text-primary hover:underline">
+          {{ page.next.title }} <i class="fa fa-arrow-right"></i>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</article>

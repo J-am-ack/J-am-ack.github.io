@@ -18,21 +18,49 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Your awesome title
-email: your-email@example.com
+title: Jamming.Y's Site
+email: 3922909893@qq.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Welcome to Jamming.Y's world! 
+  I'm an underguaduate student majoring in Infomation and Computing Science at EECS,PKU.
+  My research interests now especially lies in Computer Vision.
+  I love many kinds of sports, including football, basketball, badminton, table tennis, and running.
+  I'm also a big fan of Atletico de Madrid.
+  I love music, but not such an expert.
+  I'm looking forward to sharing my thoughts and experiences with you!
+
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+url: "https://j-am-ack.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+author: Jam Y
+twitter_username: AtletiJam60739
+github_username:  J-am-ack
+
+
 
 # Build settings
+
 theme: minima
-plugins:
+plugins: 
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
   - jekyll-feed
+permalink: /blog/:year/:month/:day/:title/  # 文章URL格式
+paginate: 5  # 每页显示5篇文章
+paginate_path: /blog/page:num/
+
+
+nav:
+  - title: 首页
+    url: /
+  - title: 关于
+    url: /about/
+  - title: 博客
+    url: /blog/
+  - title: 友链
+    url: /friends/
+  - title: 访问统计
+    url: /stats/
 
 # Exclude from processing.
 # The following items will not be processed, by default.

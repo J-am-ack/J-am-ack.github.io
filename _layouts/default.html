@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  {% seo %}
+</head>
+<body>
+  <!-- 引入导航栏 -->
+  {% include header.html %}
+
+  <!-- 页面内容 -->
+  <main class="container mx-auto px-4 py-12">
+    {{ content }}
+  </main>
+
+  <!-- 引入页脚 -->
+  {% include footer.html %}
+
+  <script src="{{ "/assets/js/main.js" | relative_url }}"></script>
+</body>
+</html>
