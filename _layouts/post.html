@@ -157,9 +157,7 @@
       
       <!-- 文章特色图 -->
       {% if page.cover %}
-        <div class="w-full h-64 md:h-80 overflow-hidden rounded-xl mb-8 shadow-md">
-          <img src="{{ page.cover }}" alt="{{ page.title }}的封面图" class="w-full h-full object-cover hover:scale-105 transition-all duration-700">
-        </div>
+        <img src="{{ page.cover | relative_url }}" alt="{{ page.title }}的封面图">
       {% endif %}
       
       <!-- 文章内容 -->

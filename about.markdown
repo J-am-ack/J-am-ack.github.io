@@ -4,6 +4,16 @@ title: About
 permalink: /about/
 ---
 
+
+If you're insterested in me, please feel free to contact me by email:
+<EMAIL>3922909893@qq.com
+
+
+
+
+
+following@jekyll:
+
 This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
 
 You can find the source code for Minima at GitHub:
