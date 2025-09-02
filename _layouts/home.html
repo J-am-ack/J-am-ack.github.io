@@ -377,7 +377,7 @@
 
     <!-- 友链区域 -->
     <section class="friends-section">
-      <h2 class="section-title">友情链接</h2>
+      <h2 class="section-title">Friends</h2>
       <div class="friends-grid">
         {% for friend in site.friends %}
           <a href="{{ friend.url }}" target="_blank" class="friend-card">
@@ -397,7 +397,7 @@
 
     <!-- 访问统计地图 -->
     <section class="visitor-map-section">
-      <h2 class="section-title">访问统计</h2>
+      <h2 class="section-title">Statistics</h2>
       <div id="visitor-map"></div>
     </section>
   </main>
@@ -408,7 +408,7 @@
       <p class="footer-text">
         © {{ site.time | date: "%Y" }} {{ site.title }} | 
         <a href="{{ site.url | default: '#' }}" style="color: white; opacity: 1; text-decoration: underline;">
-          {{ site.url | default: '我的博客' }}
+          {{ site.url | default: 'JAM Y的博客' }}
         </a>
       </p>
     </div>

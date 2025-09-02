@@ -1,9 +1,17 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "Welcome to Jam Y's Blog!"
 date:   2025-08-30 12:37:46 +0800
 categories: jekyll update
 ---
+Hi there!
+This is my first trial on my site to post a blog.
+
+I'd like to mark this post as a test post to see if it works.
+Meanwhile, this would mark some of the utils of the JEKYLL tool.
+
+
+
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
 Jekyll requires blog post files to be named according to the following format:

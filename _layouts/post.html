@@ -1,56 +1,373 @@
----
-layout: default
----
-
-<article class="max-w-3xl mx-auto">
-  <!-- 文章头部 -->
-  <header class="mb-10 text-center">
-    <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">{{ page.category }}</span>
-    <h1 class="text-3xl md:text-4xl font-bold mt-4 mb-3">{{ page.title }}</h1>
-    <div class="flex flex-wrap justify-center gap-4 text-gray-500 text-sm">
-      <span><i class="fa fa-calendar mr-1"></i> {{ page.date | date: "%Y年%m月%d日" }}</span>
-      <span><i class="fa fa-user mr-1"></i> {{ site.author.name }}</span>
-      <span><i class="fa fa-clock-o mr-1"></i> 阅读时间：{{ page.read_time | default: "5" }} 分钟</span>
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'zh-CN' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <!-- 引入Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 配置Tailwind自定义颜色和字体 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '{{ site.primary_color | default: "#3B82F6" }}',
+            secondary: '{{ site.secondary_color | default: "#64748B" }}',
+            accent: '{{ site.accent_color | default: "#F97316" }}',
+            dark: '{{ site.dark_color | default: "#1E293B" }}',
+            light: '{{ site.light_color | default: "#F8FAFC" }}'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Georgia', 'serif'],
+            mono: ['Fira Code', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .transition-custom {
+        transition: all 0.3s ease;
+      }
+      .content-auto {
+        content-visibility: auto;
+      }
+    }
+  </style>
+  <!-- 代码高亮样式 -->
+  <style>
+    /* 代码块样式 */
+    pre {
+      background-color: #1E293B;
+      color: #E2E8F0;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-family: 'Fira Code', monospace;
+    }
+    
+    code {
+      font-family: 'Fira Code', monospace;
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      background-color: #E2E8F0;
+      color: #1E293B;
+    }
+    
+    pre code {
+      background-color: transparent;
+      color: inherit;
+      padding: 0;
+    }
+    
+    /* 引用样式 */
+    blockquote {
+      border-left: 4px solid theme('colors.primary');
+      padding-left: 1rem;
+      margin-left: 0;
+      color: theme('colors.secondary');
+      font-style: italic;
+    }
+    
+    /* 图片居中 */
+    .post-content img {
+      display: block;
+      margin: 2rem auto;
+      max-width: 100%;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+  </style>
+</head>
+<body class="bg-light text-dark font-sans">
+  <!-- 导航栏 -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="{{ site.url | relative_url }}" class="text-2xl font-bold text-primary hover:text-primary/80 transition-custom">
+        {{ site.title }}
+      </a>
+      <nav class="hidden md:flex space-x-6">
+        <a href="{{ '/' | relative_url }}" class="hover:text-primary transition-custom">首页</a>
+        <a href="{{ '/archive' | relative_url }}" class="hover:text-primary transition-custom">归档</a>
+        <a href="{{ '/categories' | relative_url }}" class="hover:text-primary transition-custom">分类</a>
+        <a href="{{ '/about' | relative_url }}" class="hover:text-primary transition-custom">关于</a>
+      </nav>
+      <!-- 移动端菜单按钮 -->
+      <button class="md:hidden text-dark hover:text-primary transition-custom" id="menu-toggle">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
+    <!-- 移动端菜单 -->
+    <div class="md:hidden hidden bg-white border-t" id="mobile-menu">
+      <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+        <a href="{{ '/' | relative_url }}" class="py-2 hover:text-primary transition-custom">首页</a>
+        <a href="{{ '/archive' | relative_url }}" class="py-2 hover:text-primary transition-custom">归档</a>
+        <a href="{{ '/categories' | relative_url }}" class="py-2 hover:text-primary transition-custom">分类</a>
+        <a href="{{ '/about' | relative_url }}" class="py-2 hover:text-primary transition-custom">关于</a>
+      </div>
     </div>
   </header>
-  
-  <!-- 文章封面图 -->
-  {% if page.image %}
-    <div class="mb-8 rounded-lg overflow-hidden shadow-md">
-      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" class="w-full h-auto">
-    </div>
-  {% endif %}
-  
-  <!-- 文章内容（Markdown渲染） -->
-  <div class="prose prose-lg max-w-none">
-    {{ content }}
-  </div>
-  
-  <!-- 标签 -->
-  {% if page.tags.size > 0 %}
-    <div class="mt-10">
-      <span class="text-gray-600 mr-2">标签：</span>
-      {% for tag in page.tags %}
-        <a href="/blog/tag/{{ tag }}" class="bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full text-sm inline-block mr-2 mb-2">
-          {{ tag }}
-        </a>
-      {% endfor %}
-    </div>
-  {% endif %}
-  
-  <!-- 上下篇导航 -->
-  <div class="mt-12 pt-8 border-t border-gray-200">
-    <div class="flex justify-between">
-      {% if page.previous %}
-        <a href="{{ page.previous.url | relative_url }}" class="flex items-center gap-2 text-primary hover:underline">
-          <i class="fa fa-arrow-left"></i> {{ page.previous.title }}
-        </a>
+
+  <!-- 主要内容区 -->
+  <main class="container mx-auto px-4 py-8 md:py-12">
+    <!-- 文章头部 -->
+    <article class="max-w-3xl mx-auto">
+      <!-- 文章分类 -->
+      {% if page.categories %}
+        <div class="flex justify-center mb-4">
+          {% for category in page.categories %}
+            <a href="{{ '/categories#' | append: category | relative_url }}" class="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium mr-2 hover:bg-primary/20 transition-custom">
+              {{ category }}
+            </a>
+          {% endfor %}
+        </div>
       {% endif %}
-      {% if page.next %}
-        <a href="{{ page.next.url | relative_url }}" class="flex items-center gap-2 text-primary hover:underline">
-          {{ page.next.title }} <i class="fa fa-arrow-right"></i>
-        </a>
+      
+      <!-- 文章标题 -->
+      <h1 class="text-4xl md:text-5xl font-bold text-center mb-6 text-shadow">
+        {{ page.title }}
+      </h1>
+      
+      <!-- 文章元信息 -->
+      <div class="flex flex-wrap justify-center items-center text-secondary text-sm mb-8 pb-4 border-b border-gray-200">
+        <span class="flex items-center mr-6 mb-2 md:mb-0">
+          <i class="fa fa-calendar-o mr-2"></i>
+          {{ page.date | date: "%Y年%m月%d日" }}
+        </span>
+        {% if page.author %}
+          <span class="flex items-center mr-6 mb-2 md:mb-0">
+            <i class="fa fa-user-o mr-2"></i>
+            {{ page.author }}
+          </span>
+        {% endif %}
+        <span class="flex items-center mr-6 mb-2 md:mb-0">
+          <i class="fa fa-clock-o mr-2"></i>
+          {{ content | strip_html | number_of_words | divided_by: 300 | plus: 1 }} 分钟阅读
+        </span>
+      </div>
+      
+      <!-- 文章特色图 -->
+      {% if page.cover %}
+        <div class="w-full h-64 md:h-80 overflow-hidden rounded-xl mb-8 shadow-md">
+          <img src="{{ page.cover }}" alt="{{ page.title }}的封面图" class="w-full h-full object-cover hover:scale-105 transition-all duration-700">
+        </div>
       {% endif %}
+      
+      <!-- 文章内容 -->
+      <div class="post-content prose prose-lg max-w-none">
+        {{ content }}
+      </div>
+      
+      <!-- 文章标签 -->
+      {% if page.tags.size > 0 %}
+        <div class="mt-10 pt-6 border-t border-gray-200">
+          <div class="flex flex-wrap items-center">
+            <span class="text-secondary mr-3">标签：</span>
+            {% for tag in page.tags %}
+              <a href="{{ '/tags#' | append: tag | relative_url }}" class="bg-gray-100 text-dark px-3 py-1 rounded-full text-sm mr-2 mb-2 hover:bg-gray-200 transition-custom">
+                {{ tag }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+      
+      <!-- 分享按钮 -->
+      <div class="mt-8 pt-6 border-t border-gray-200">
+        <span class="text-secondary mr-3">分享：</span>
+        <div class="flex space-x-3">
+          <a href="https://twitter.com/intent/tweet?url={{ page.url | absolute_url }}&text={{ page.title }}" target="_blank" rel="noopener" class="bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-custom">
+            <i class="fa fa-twitter"></i>
+          </a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url }}" target="_blank" rel="noopener" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-700 transition-custom">
+            <i class="fa fa-facebook"></i>
+          </a>
+          <a href="mailto:?subject={{ page.title }}&body={{ page.url | absolute_url }}" class="bg-gray-700 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-800 transition-custom">
+            <i class="fa fa-envelope"></i>
+          </a>
+          <a href="javascript:window.location='https://pinterest.com/pin/create/button/?url='+encodeURIComponent('{{ page.url | absolute_url }}')+'&media='+encodeURIComponent('{{ page.cover | default: site.avatar }}')+'&description='+encodeURIComponent('{{ page.title }}');" target="_blank" rel="noopener" class="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-red-700 transition-custom">
+            <i class="fa fa-pinterest"></i>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+    <!-- 上一篇/下一篇导航 -->
+    <div class="max-w-3xl mx-auto mt-12 pt-8 border-t border-gray-200">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        {% if page.previous %}
+          <a href="{{ page.previous.url | relative_url }}" class="flex items-center space-x-2 hover:text-primary transition-custom w-full md:w-auto justify-start">
+            <i class="fa fa-arrow-left"></i>
+            <span>上一篇：{{ page.previous.title | truncate: 20 }}</span>
+          </a>
+        {% else %}
+          <div class="w-full md:w-1/2"></div>
+        {% endif %}
+        
+        {% if page.next %}
+          <a href="{{ page.next.url | relative_url }}" class="flex items-center space-x-2 hover:text-primary transition-custom w-full md:w-auto justify-end">
+            <span>下一篇：{{ page.next.title | truncate: 20 }}</span>
+            <i class="fa fa-arrow-right"></i>
+          </a>
+        {% endif %}
+      </div>
     </div>
-  </div>
-</article>
+    
+    <!-- 相关文章推荐 -->
+    {% if site.related_posts.size > 0 %}
+      <section class="max-w-5xl mx-auto mt-16">
+        <h2 class="text-2xl font-bold mb-8 pb-2 border-b border-gray-200">相关推荐</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {% for post in site.related_posts limit:3 %}
+            <a href="{{ post.url | relative_url }}" class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-custom">
+              {% if post.cover %}
+                <div class="h-48 overflow-hidden">
+                  <img src="{{ post.cover }}" alt="{{ post.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
+                </div>
+              {% endif %}
+              <div class="p-5">
+                <h3 class="font-bold text-lg mb-2 group-hover:text-primary transition-custom line-clamp-2">
+                  {{ post.title }}
+                </h3>
+                <p class="text-secondary text-sm mb-3 line-clamp-2">
+                  {{ post.excerpt | strip_html | truncate: 80 }}
+                </p>
+                <div class="text-xs text-gray-400">
+                  <i class="fa fa-calendar-o mr-1"></i>
+                  {{ post.date | date: "%Y年%m月%d日" }}
+                </div>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+    
+    <!-- 评论区 -->
+    {% if site.disqus.shortname %}
+      <section class="max-w-3xl mx-auto mt-16">
+        <h2 class="text-2xl font-bold mb-8 pb-2 border-b border-gray-200">评论区</h2>
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = '{{ page.url | absolute_url }}';
+            this.page.identifier = '{{ page.id }}';
+          };
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://{{ site.disqus.shortname }}.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </section>
+    {% endif %}
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white py-12 mt-20">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <h3 class="text-xl font-bold mb-2">{{ site.title }}</h3>
+          <p class="text-gray-400 max-w-md text-center md:text-left">
+            {{ site.description | truncate: 100 }}
+          </p>
+        </div>
+        <div class="flex space-x-4">
+          {% if site.social.github %}
+            <a href="https://github.com/{{ site.social.github }}" target="_blank" rel="noopener" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-custom">
+              <i class="fa fa-github"></i>
+            </a>
+          {% endif %}
+          {% if site.social.twitter %}
+            <a href="https://twitter.com/{{ site.social.twitter }}" target="_blank" rel="noopener" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-custom">
+              <i class="fa fa-twitter"></i>
+            </a>
+          {% endif %}
+          {% if site.social.email %}
+            <a href="mailto:{{ site.social.email }}" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-custom">
+              <i class="fa fa-envelope"></i>
+            </a>
+          {% endif %}
+          {% if site.social.linkedin %}
+            <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-custom">
+              <i class="fa fa-linkedin"></i>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400 text-sm">
+        <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
+        <p class="mt-2">
+          <a href="{{ '/' | relative_url }}" class="hover:text-white transition-custom">首页</a> · 
+          <a href="{{ '/privacy' | relative_url }}" class="hover:text-white transition-custom">隐私政策</a> · 
+          <a href="{{ '/terms' | relative_url }}" class="hover:text-white transition-custom">使用条款</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 返回顶部按钮 -->
+  <button id="back-to-top" class="fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+
+  <!-- JavaScript -->
+  <script>
+    // 移动端菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // 返回顶部按钮
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopButton.classList.remove('opacity-0', 'invisible');
+        backToTopButton.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopButton.classList.remove('opacity-100', 'visible');
+        backToTopButton.classList.add('opacity-0', 'invisible');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
