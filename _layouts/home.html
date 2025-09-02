@@ -4,18 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title | default: site.title }} | {{ site.description }}</title>
-  <!-- 加载 Minima 主题默认样式（确保不缺样式） -->
   <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
-  <!-- 加载 Font Awesome 图标（用于统计、按钮等，美观不占空间） -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <!-- 引入地图样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
-    /* 自定义美化样式（适配卡片、响应式布局） */
     :root {
-      --primary-color: #2c3e50; /* 主色调：深蓝灰 */
-      --secondary-color: #3498db; /* 辅助色：蓝色（按钮/链接） */
-      --light-gray: #f8f9fa; /* 卡片背景色 */
-      --text-color: #333; /* 文字颜色 */
-      --shadow: 0 2px 8px rgba(0,0,0,0.1); /* 卡片阴影 */
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --light-gray: #f8f9fa;
+      --text-color: #333;
+      --shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     body {
       font-family: "Microsoft YaHei", Arial, sans-serif;
@@ -24,35 +23,86 @@
       margin: 0;
       padding: 0;
     }
-    /* 头部导航栏 */
+    /* 头部导航栏（修改为带背景图样式） */
     .site-header {
-      background-color: var(--primary-color);
+      position: relative;
+      overflow: hidden;
       color: white;
-      padding: 1.5rem 0;
-      text-align: center;
+      padding: 3rem 0;
       margin-bottom: 3rem;
+      text-align: center;
+    }
+    .header-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .header-background img {
+      width: 100%;
+      height: 100%;
+      object-fit:cover;
+      opacity: 0.4;
+    }
+    .header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .avatar-container {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid white;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+    .avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .site-title {
       font-size: 2.2rem;
-      margin: 0;
+      margin: 0 0 0.5rem 0;
     }
     .site-description {
-      font-size: 1.1rem;
+      font-size: 1rem;
+      text-align: center; /* 新增：文本居中 */
+      white-space: pre-line; /* 可选：增强换行兼容性 */
+      color: #333333; /* 改为你需要的颜色（例如深灰色） */
+      /* 可选：增加文字阴影增强可读性 */
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
       opacity: 0.9;
-      margin-top: 0.5rem;
+      max-width: 600px;
+      margin: 0;
     }
-    /* 容器（控制内容宽度，避免太宽） */
+    .header-divider {
+      width: 80%;
+      height: 2px;
+      background-color: rgba(255, 255, 255, 0.6);
+      margin-top: 1.5rem;
+    }
+    /* 容器样式 */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 1.5rem;
     }
-    /* 统计卡片区域（文章数、分类数） */
+    /* 统计卡片区域 */
     .stats {
       display: flex;
       justify-content: center;
       gap: 2rem;
-      flex-wrap: wrap; /* 手机上自动换行 */
+      flex-wrap: wrap;
       margin-bottom: 3rem;
       text-align: center;
     }
@@ -76,7 +126,7 @@
     /* 文章列表卡片 */
     .posts-list {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* 自动分栏，最小350px */
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
       gap: 2rem;
       margin-bottom: 4rem;
     }
@@ -88,17 +138,15 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .post-card:hover {
-      transform: translateY(-5px); /* 鼠标悬浮时轻微上移 */
+      transform: translateY(-5px);
       box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     }
-    /* 文章封面图（可选，没有图会显示默认背景） */
     .post-cover {
       height: 180px;
       background-color: var(--light-gray);
       background-size: cover;
       background-position: center;
     }
-    /* 文章内容区域 */
     .post-content {
       padding: 1.5rem;
     }
@@ -130,11 +178,10 @@
       color: #666;
       margin-bottom: 1.2rem;
       display: -webkit-box;
-      -webkit-line-clamp: 3; /* 只显示3行摘要，超出省略 */
+      line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-    /* 阅读更多按钮 */
     .read-more {
       display: inline-block;
       padding: 0.6rem 1.2rem;
@@ -146,8 +193,72 @@
       transition: background-color 0.3s ease;
     }
     .read-more:hover {
-      background-color: #2980b9; /* 按钮 hover 时加深颜色 */
+      background-color: #2980b9;
       color: white;
+    }
+    /* 友链区域 */
+    .friends-section {
+      margin-bottom: 4rem;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--secondary-color);
+      display: inline-block;
+    }
+    .friends-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .friend-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .friend-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .friend-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .friend-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .friend-info h3 {
+      font-size: 1.1rem;
+      margin: 0 0 0.2rem 0;
+    }
+    .friend-info p {
+      font-size: 0.85rem;
+      color: #666;
+      margin: 0;
+    }
+    /* 访问统计地图 */
+    .visitor-map-section {
+      margin-bottom: 4rem;
+    }
+    #visitor-map {
+      height: 400px;
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
     }
     /* 底部版权信息 */
     .site-footer {
@@ -161,10 +272,10 @@
       opacity: 0.8;
       font-size: 0.9rem;
     }
-    /* 响应式适配（手机端） */
+    /* 响应式适配 */
     @media (max-width: 768px) {
-      .posts-list {
-        grid-template-columns: 1fr; /* 手机上只显示1列 */
+      .posts-list, .friends-grid {
+        grid-template-columns: 1fr;
       }
       .site-title {
         font-size: 1.8rem;
@@ -175,21 +286,38 @@
       .stat-card {
         padding: 1rem 1.5rem;
       }
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      .avatar-container {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- 头部导航栏 -->
+  <!-- 头部区域（含背景图、头像和简介） -->
   <header class="site-header">
-    <div class="container">
+    <div class="header-background">
+      <!-- 替换为你的背景图路径 -->
+      <img src="{{ '/assets/background.jpg' | relative_url }}" alt="背景图">
+    </div>
+    <div class="header-content">
+      <div class="avatar-container">
+        <!-- 替换为你的头像路径 -->
+        <img src="{{ '/assets/avatar.jpg' | relative_url }}" alt="头像" class="avatar">
+      </div>
       <h1 class="site-title">{{ site.title }}</h1>
-      <p class="site-description">{{ site.description }}</p>
+      <p class="site-description">{{ site.description | replace: "\n", "<br>" }}</p>
+      <div class="header-divider"></div>
     </div>
   </header>
 
   <!-- 主要内容区域 -->
   <main class="container">
-    <!-- 统计卡片（文章数、分类数） -->
+    <!-- 统计卡片 -->
     <section class="stats">
       <div class="stat-card">
         <i class="fa fa-file-text-o" aria-hidden="true" style="font-size: 1.5rem; color: var(--secondary-color);"></i>
@@ -213,7 +341,6 @@
       {% if site.posts.size > 0 %}
         {% for post in site.posts %}
           <article class="post-card">
-            <!-- 文章封面图（如果文章 Front Matter 中有 cover 字段，就显示；没有就显示默认色） -->
             <div class="post-cover" 
                 style="background-image: url('{{ post.cover | escape }}')">
             </div>
@@ -231,7 +358,7 @@
                 <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
               </h2>
               <p class="post-excerpt">
-                {{ post.excerpt | strip_html }} <!-- 去除 HTML 标签，只保留纯文字摘要 -->
+                {{ post.excerpt | strip_html }}
               </p>
               <a href="{{ post.url | relative_url }}" class="read-more">
                 <i class="fa fa-arrow-right" aria-hidden="true"></i> 阅读更多
@@ -240,13 +367,38 @@
           </article>
         {% endfor %}
       {% else %}
-        <!-- 没有文章时显示的提示 -->
         <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 0; color: #666;">
           <i class="fa fa-bookmark-o" aria-hidden="true" style="font-size: 2rem; margin-bottom: 1rem;"></i>
           <h3>暂无文章</h3>
           <p>快去 <code>_posts</code> 目录创建你的第一篇文章吧！</p>
         </div>
       {% endif %}
+    </section>
+
+    <!-- 友链区域 -->
+    <section class="friends-section">
+      <h2 class="section-title">友情链接</h2>
+      <div class="friends-grid">
+        {% for friend in site.friends %}
+          <a href="{{ friend.url }}" target="_blank" class="friend-card">
+            <div class="friend-avatar">
+              <img src="{{ friend.avatar }}" alt="{{ friend.name }}">
+            </div>
+            <div class="friend-info">
+              <h3>{{ friend.name }}</h3>
+              <p>{{ friend.description }}</p>
+            </div>
+          </a>
+        {% else %}
+          <p style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #666;">暂无友链，期待你的添加</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- 访问统计地图 -->
+    <section class="visitor-map-section">
+      <h2 class="section-title">访问统计</h2>
+      <div id="visitor-map"></div>
     </section>
   </main>
 
@@ -261,5 +413,38 @@
       </p>
     </div>
   </footer>
+
+  <!-- 地图初始化脚本 -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // 等待页面加载完成
+    document.addEventListener('DOMContentLoaded', function() {
+      // 初始化地图
+      const map = L.map('visitor-map').setView([30, 100], 2); // 初始中心点和缩放级别
+
+      // 添加地图图层（使用OpenStreetMap）
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
+      }).addTo(map);
+
+      // 示例访问数据（实际应用中需替换为真实数据）
+      const visitors = [
+        { ip: "114.114.114.114", lat: 39.9042, lng: 116.4074, name: "北京" },
+        { ip: "8.8.8.8", lat: 37.7749, lng: -122.4194, name: "旧金山" },
+        { ip: "203.0.113.1", lat: 35.6895, lng: 139.6917, name: "东京" },
+        { ip: "198.51.100.1", lat: 51.5074, lng: -0.1278, name: "伦敦" }
+      ];
+
+      // 添加标记到地图
+      visitors.forEach(visitor => {
+        const marker = L.marker([visitor.lat, visitor.lng]).addTo(map);
+        marker.bindPopup(`
+          <strong>IP:</strong> ${visitor.ip}<br>
+          <strong>位置:</strong> ${visitor.name}
+        `);
+      });
+    });
+  </script>
 </body>
 </html>

@@ -20,7 +20,7 @@
 
 title: Jamming.Y's Site
 email: 3922909893@qq.com
-description: >- # this means to ignore newlines until "baseurl:"
+description: |- 
   Welcome to Jamming.Y's world! 
   I'm an underguaduate student majoring in Infomation and Computing Science at EECS,PKU.
   My research interests now especially lies in Computer Vision.
@@ -81,3 +81,15 @@ nav:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+
+
+friends:
+  - name: "xisensal"
+    url: "https://example1.com"
+    avatar: "https://picsum.photos/id/1012/100/100"
+    description: "简短描述"
+  - name: "dasai-hzm"
+    url: "https://example2.com"
+    avatar: "https://picsum.photos/id/1025/100/100"
+    description: "简短描述"
