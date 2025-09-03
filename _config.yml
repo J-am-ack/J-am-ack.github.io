@@ -86,10 +86,10 @@ nav:
 
 friends:
   - name: "xisensal"
-    url: "https://example1.com"
-    avatar: "https://picsum.photos/id/1012/100/100"
-    description: "简短描述"
+    url: "https://xisenal.github.io/"
+    avatar: friends\avatars\xisanal.jpg
+    description: "西瓜qwq"
   - name: "dasai-hzm"
-    url: "https://example2.com"
-    avatar: "https://picsum.photos/id/1025/100/100"
-    description: "简短描述"
+    url: "https://hzmsailor.com/"
+    avatar: friends\avatars\hzm.png
+    description: "session"
