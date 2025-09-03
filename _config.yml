@@ -93,3 +93,10 @@ friends:
     url: "https://hzmsailor.com/"
     avatar: friends\avatars\hzm.png
     description: "session"
+
+
+
+kramdown:
+  math_engine: mathjax  # 启用 Kramdown 的 MathJax 支持
+  syntax_highlighter: rouge
+  input: GFM  # 支持 GitHub Flavored Markdown

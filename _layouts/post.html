@@ -87,6 +87,26 @@
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
   </style>
+  <!-- 数学公式渲染：MathJax -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    MathJax.config = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],  // 行内公式：$E=mc^2$
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]  // 块级公式：$$公式$$
+      },
+      startup: {
+        pageReady: function() {
+          return MathJax.startup.defaultPageReady().then(function() {
+            // 修复公式渲染后布局偏移
+            document.querySelectorAll('.MathJax').forEach(el => {
+              el.style.display = 'inline-block';
+            });
+          });
+        }
+      }
+    };
+  </script>
 </head>
 <body class="bg-light text-dark font-sans">
   <!-- 导航栏 -->
@@ -159,7 +179,11 @@
       {% if page.cover %}
         <img src="{{ page.cover | relative_url }}" alt="{{ page.title }}的封面图">
       {% endif %}
-      
+
+
+
+
+
       <!-- 文章内容 -->
       <div class="post-content prose prose-lg max-w-none">
         {{ content }}
