@@ -84,12 +84,80 @@
       opacity: 0.9;
       max-width: 600px;
       margin: 0;
+      margin-bottom: 1rem; /* 新增：给联系方式区域留间距 */
     }
+
+    /* ———— 新增：联系方式区域样式 ———— */
+    .contact-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem; /* 图标间距 */
+      flex-wrap: wrap; /* 移动端自动换行 */
+      margin: 1rem 0; /* 上下间距 */
+    }
+    .contact-icon {
+      width: 44px; /* 图标大小 */
+      height: 44px;
+      border-radius: 50%;
+      background-color: var(--light-gray);
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none; /* 清除链接下划线 */
+    }
+    .contact-icon:hover {
+      transform: translateY(-3px) scale(1.05); /*  hover 上浮+轻微放大 */
+      background-color: var(--secondary-color);
+      color: white; /* hover 时图标变白 */
+    }
+    /* 微信/公众号二维码弹窗样式 */
+    .contact-popover {
+      position: relative;
+    }
+    .contact-qr {
+      position: absolute;
+      bottom: 100%; /* 弹窗在图标上方 */
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+      padding: 0.8rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      width: 160px; /* 二维码大小 */
+    }
+    .contact-popover:hover .contact-qr {
+      opacity: 1;
+      visibility: visible;
+      bottom: calc(100% + 0.5rem); /* 弹窗与图标间距 */
+    }
+    .contact-qr img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+    .contact-qr p {
+      font-size: 0.75rem;
+      color: var(--text-color);
+      text-align: center;
+      margin: 0.5rem 0 0 0;
+    }
+    /* ———— 新增结束 ———— */
+
     .header-divider {
       width: 80%;
       height: 2px;
       background-color: rgba(255, 255, 255, 0.6);
-      margin-top: 1.5rem;
+      margin-top: 1rem; /* 调整分隔线与联系方式的间距 */
     }
     /* 容器样式 */
     .container {
@@ -294,6 +362,14 @@
         margin-right: 0;
         margin-bottom: 1rem;
       }
+      /* 响应式：移动端联系方式图标间距缩小 */
+      .contact-section {
+        gap: 1rem;
+      }
+      .contact-icon {
+        width: 40px;
+        height: 40px;
+      }
     }
   </style>
 </head>
@@ -311,6 +387,45 @@
       </div>
       <h1 class="site-title">{{ site.title }}</h1>
       <p class="site-description">{{ site.description | replace: "\n", "<br>" }}</p>
+      
+      <!-- ———— 新增：联系方式图标区域 ———— -->
+      <div class="contact-section">
+        <!-- GitHub（直接跳转） -->
+        <a href="https://github.com/J-am-ack" 
+           target="_blank" rel="noopener" 
+           class="contact-icon" 
+           title="访问我的GitHub">
+          <i class="fa fa-github"></i>
+        </a>
+        <!-- 邮箱（打开邮件客户端） -->
+        <a href="mailto:3922909893@qq.com" 
+           class="contact-icon" 
+           title="给我发邮件">
+          <i class="fa fa-envelope"></i>
+        </a>
+        <!-- 微信（hover显示二维码） -->
+        <div class="contact-popover">
+          <div class="contact-icon" title="我的微信二维码">
+            <i class="fa fa-weixin"></i>
+          </div>
+          <div class="contact-qr">
+            <img src="{{ '/assets/images/wechat-qr.jpg' | relative_url }}" alt="微信二维码">
+            <p>扫码添加我的微信</p>
+          </div>
+        </div>
+        <!-- 微信公众号（hover显示二维码） -->
+        <div class="contact-popover">
+          <div class="contact-icon" title="微信公众号二维码">
+            <i class="fa fa-newspaper-o"></i> <!-- 公众号专属图标 -->
+          </div>
+          <div class="contact-qr">
+            <img src="{{ '/assets/images/wechat-official-qr.jpg' | relative_url }}" alt="微信公众号二维码">
+            <p>扫码关注我的个人公众号</p>
+          </div>
+        </div>
+      </div>
+      <!-- ———— 新增结束 ———— -->
+      
       <div class="header-divider"></div>
     </div>
   </header>
@@ -341,8 +456,29 @@
       {% if site.posts.size > 0 %}
         {% for post in site.posts %}
           <article class="post-card">
-            <div class="post-cover" 
-                style="background-image: url('{{ post.cover | escape }}')">
+            <!-- 修复：封面图路径加 relative_url + 空值判断 -->
+            <div class="post-cover">
+              {% if post.cover %}
+                <!-- 有封面图时 -->
+                <style>
+                  .post-cover {
+                    background-image: url('{{ post.cover | relative_url | escape }}');
+                    background-size: cover;
+                    background-position: center;
+                    height: 180px; /* 继承原高度，避免样式丢失 */
+                  }
+                </style>
+              {% else %}
+                <!-- 无封面图时，用默认图 -->
+                <style>
+                  .post-cover {
+                    background-image: url('{{ "/assets/images/default-cover.jpg" | relative_url | escape }}');
+                    background-size: cover;
+                    background-position: center;
+                    height: 180px;
+                  }
+                </style>
+              {% endif %}
             </div>
             <div class="post-content">
               <div class="post-date">
