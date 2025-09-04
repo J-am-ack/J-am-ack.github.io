@@ -40,11 +40,32 @@
       .content-auto {
         content-visibility: auto;
       }
+      .post-content {
+        line-height: 1.8;  /* 增加行高，默认通常是1.5 */
+        font-size: 1.05rem;  /* 适当放大字体 */
+      }
+
+      .post-content p {
+        margin-bottom: 1.2rem;  /* 段落之间的间距 */
+      }
+
+      .post-content h1,
+      .post-content h2,
+      .post-content h3 {
+        margin-top: 2rem;    /* 标题上方间距 */
+        margin-bottom: 1rem; /* 标题下方间距 */
+      }
+      .post-content ul, 
+      .post-content ol {
+        margin: 1rem 0 1.5rem 1.5rem;  /* 列表与前后内容的间距 */
+        padding-left: 1rem;
+      }
     }
   </style>
   <!-- 代码高亮样式 -->
   <style>
     /* 代码块样式 */
+    
     pre {
       background-color: #1E293B;
       color: #E2E8F0;

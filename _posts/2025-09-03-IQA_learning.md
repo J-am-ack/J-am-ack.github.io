@@ -1,13 +1,14 @@
 ---
 layout: post
 title:  "Image Quality Assessment Learning"
-date:   2025-09-02 16:46:01 +0800
+date:   2025-09-03 16:46:01 +0800
 categories: CV IQA Learning
-cover: "assets\images\default-cover.jpg"
+cover: "assets/images/default-cover.jpg"
 ---
 
 
-# IQA Learning
+##  IQA Learning
+#### 2025-09-03
 
 ## Introduction
 这是笔者学习图像质量评价的指标（Image Quality Assessment，IQA）的笔记，这份笔记可能后续还会更新，期望的是汇总目前Computer Vision领域的IQA metrics，希望能够详细介绍它们的定义、算法、应用场景等等。

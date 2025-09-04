@@ -457,29 +457,21 @@
         {% for post in site.posts %}
           <article class="post-card">
             <!-- 修复：封面图路径加 relative_url + 空值判断 -->
-            <div class="post-cover">
-              {% if post.cover %}
-                <!-- 有封面图时 -->
-                <style>
-                  .post-cover {
-                    background-image: url('{{ post.cover | relative_url | escape }}');
-                    background-size: cover;
-                    background-position: center;
-                    height: 180px; /* 继承原高度，避免样式丢失 */
-                  }
-                </style>
-              {% else %}
-                <!-- 无封面图时，用默认图 -->
-                <style>
-                  .post-cover {
-                    background-image: url('{{ "/assets/images/default-cover.jpg" | relative_url | escape }}');
-                    background-size: cover;
-                    background-position: center;
-                    height: 180px;
-                  }
-                </style>
-              {% endif %}
-            </div>
+            <!-- 封面图：使用内联样式，避免冲突 -->
+          <div class="post-cover" 
+            {% if post.cover %}
+              style="background-image: url('{{ post.cover | relative_url | escape }}'); 
+                    background-size: cover; 
+                    background-position: center; 
+                    height: 180px;"
+            {% else %}
+              style="background-image: url('/assets/images/default-cover.jpg'); 
+                    background-size: cover; 
+                    background-position: center; 
+                    height: 180px;"
+            {% endif %}
+          >
+          </div>
             <div class="post-content">
               <div class="post-date">
                 <i class="fa fa-clock-o" aria-hidden="true"></i>

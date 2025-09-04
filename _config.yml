@@ -97,6 +97,9 @@ friends:
 
 
 kramdown:
-  math_engine: mathjax  # 启用 Kramdown 的 MathJax 支持
+  math_engine: mathjax
   syntax_highlighter: rouge
-  input: GFM  # 支持 GitHub Flavored Markdown
+  input: GFM
+  auto_ids: true
+  entity_output: as_char  # 避免特殊字符被转义
+  toc_levels: 1..6
