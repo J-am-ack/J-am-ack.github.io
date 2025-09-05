@@ -103,3 +103,5 @@ kramdown:
   auto_ids: true
   entity_output: as_char  # 避免特殊字符被转义
   toc_levels: 1..6
+  table_of_contents:
+    enable: true
