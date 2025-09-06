@@ -47,8 +47,37 @@ blockquote, q {
 	}
 
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 1.5em 0 !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+table th {
+    background-color: #f8fafc !important;
+    font-weight: 600 !important;
+    color: #1e293b !important;
+    padding: 0.75em 1em !important;
+    border: 1px solid #e2e8f0 !important;
+    text-align: left !important;
+}
+
+table td {
+    padding: 0.75em 1em !important;
+    border: 1px solid #e2e8f0 !important;
+    line-height: 1.6 !important;
+}
+
+table tr:nth-child(even) td {
+    background-color: #f8fafc !important;
+}
+
+@media screen and (max-width: 640px) {
+    table {
+        display: block !important;
+        overflow-x: auto !important;
+    }
 }
 
 body {
@@ -2688,17 +2717,41 @@ input, select, textarea {
 		width: calc(100% - 35%);
 	}
 
-		#main > section {
-			border-top: solid 2px #efefef;
-			margin: 4em 0 0 0;
-			padding: 4em 0 0 0;
-		}
+	/* 新增正文排版样式 */
+	#main .post-content {
+		font-size: 1.05rem !important;
+		line-height: 1.8 !important;
+		color: #334155 !important;
+		max-width: 800px !important;
+		margin: 0 auto !important;
+		padding: 0 1.5rem !important;
+	}
 
-			#main > section:first-child {
-				border-top: 0;
-				margin-top: 0;
-				padding-top: 0;
-			}
+	#main .post-content h1,
+	#main .post-content h2,
+	#main .post-content h3 {
+		margin-top: 2em !important;
+		margin-bottom: 1em !important;
+		color: #1e293b !important;
+		font-weight: 600 !important;
+	}
+
+	#main .post-content p {
+		margin-bottom: 1.25em !important;
+	}
+
+	/* 原有代码保持不变 */
+	#main > section {
+		border-top: solid 2px #efefef;
+		margin: 4em 0 0 0;
+		padding: 4em 0 0 0;
+	}
+
+	#main > section:first-child {
+		border-top: 0;
+		margin-top: 0;
+		padding-top: 0;
+	}
 
 /* Poptrox */
 
@@ -3219,3 +3272,22 @@ input, select, textarea {
 			}
 
 	}
+
+
+	/* 数学公式渲染优化 */
+.MathJax {
+    font-size: 1.05em !important;
+    margin: 0.5em 0 !important;
+}
+
+.math-display {
+    display: flex !important;
+    justify-content: center !important;
+    margin: 1.5em 0 !important;
+    overflow-x: auto;
+}
+
+.math-inline {
+    vertical-align: middle !important;
+    margin: 0 0.2em !important;
+}
