@@ -265,40 +265,45 @@
       </div>
     </div>
     
-    <!-- 相关文章推荐 -->
-    {% if site.related_posts.size > 0 %}
-      <section class="max-w-5xl mx-auto mt-16">
-        <h2 class="text-2xl font-bold mb-8 pb-2 border-b border-gray-200">相关推荐</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {% for post in site.related_posts limit:3 %}
-            <a href="{{ post.url | relative_url }}" class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-custom">
-              {% if post.cover %}
-                <div class="h-48 overflow-hidden">
-                  <img src="{{ post.cover }}" alt="{{ post.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
-                </div>
-              {% endif %}
-              <div class="p-5">
-                <h3 class="font-bold text-lg mb-2 group-hover:text-primary transition-custom line-clamp-2">
-                  {{ post.title }}
-                </h3>
-                <p class="text-secondary text-sm mb-3 line-clamp-2">
-                  {{ post.excerpt | strip_html | truncate: 80 }}
-                </p>
-                <div class="text-xs text-gray-400">
-                  <i class="fa fa-calendar-o mr-1"></i>
-                  {{ post.date | date: "%Y年%m月%d日" }}
-                </div>
+   <!-- 相关文章推荐（修复后） -->
+  {% if site.related_posts.size > 0 %}
+    <section class="max-w-5xl mx-auto mt-16 related-posts"> <!-- 新增 related-posts 类便于样式控制 -->
+      <h2 class="text-2xl font-bold mb-8 pb-2 border-b border-gray-200">相关推荐</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for post in site.related_posts limit:3 %}
+          <a href="{{ post.url | relative_url }}" class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-custom flex flex-col h-full"> <!-- 新增 flex 布局确保高度自适应 -->
+            {% if post.cover %}
+              <div class="h-48 overflow-hidden"> <!-- 修复：补充闭合标签 -->
+                <img src="{{ post.cover | relative_url }}" alt="{{ post.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
+              </div> <!-- 关键：闭合图片容器 div -->
+            {% else %}
+              <!-- 无封面图时显示默认图 -->
+              <div class="h-48 overflow-hidden bg-gray-100">
+                <img src="/assets/images/default-cover.jpg" alt="默认封面" class="w-full h-full object-cover">
               </div>
-            </a>
-          {% endfor %}
-        </div>
-      </section>
-    {% endif %}
+            {% endif %}
+            <div class="p-5 flex flex-col flex-grow"> <!-- 文字区域占满剩余空间 -->
+              <h3 class="font-bold text-lg mb-2 group-hover:text-primary transition-custom line-clamp-2">
+                {{ post.title }}
+              </h3>
+              <p class="text-secondary text-sm mb-3 line-clamp-2 flex-grow"> <!-- 摘要区域自适应高度 -->
+                {{ post.excerpt | strip_html | truncate: 80 }}
+              </p>
+              <div class="text-xs text-gray-400">
+                <i class="fa fa-calendar-o mr-1"></i>
+                {{ post.date | date: "%Y年%m月%d日" }}
+              </div>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
     
     <!-- 评论区 -->
     {% if site.disqus.shortname %}
       <section class="max-w-3xl mx-auto mt-16">
-        <h2 class="text-2xl font-bold mb-8 pb-2 border-b border-gray-200">评论区</h2>
+        <h2 class="text-2xl font-bold mb-8 pb-2 border-b border-gray-200">Comments</h2>
         <div id="disqus_thread"></div>
         <script>
           var disqus_config = function () {
