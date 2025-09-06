@@ -4,6 +4,7 @@ title:  "Welcome to Jam Y's Blog!"
 date:   2025-08-30 12:37:46 +0800
 categories: jekyll html
 cover: "blog/images/jekyll-post1.jpg"
+comments: true
 ---
 Hi there!
 This is my first trial on my site to post a blog.
