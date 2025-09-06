@@ -105,3 +105,7 @@ kramdown:
   toc_levels: 1..6
   table_of_contents:
     enable: true
+
+
+disqus:
+  shortname: https-j-am-ack-github-io

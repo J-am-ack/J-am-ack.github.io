@@ -301,7 +301,7 @@
   {% endif %}
     
     <!-- 评论区 -->
-    {% if site.disqus.shortname %}
+    <!-- {% if site.disqus.shortname %}
       <section class="max-w-3xl mx-auto mt-16">
         <h2 class="text-2xl font-bold mb-8 pb-2 border-b border-gray-200">Comments</h2>
         <div id="disqus_thread"></div>
@@ -318,6 +318,39 @@
           })();
         </script>
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </section>
+    {% endif %} -->
+    <!-- 评论区（修复后） -->
+    {% if site.disqus.shortname %}
+      <section class="max-w-3xl mx-auto mt-16 comment-section">  <!-- 新增类名便于样式控制 -->
+        <h2 class="text-2xl font-bold mb-8 pb-2 border-b border-gray-200">评论区</h2>
+        <div id="disqus_thread"></div>
+        <script>
+          // 确保短名称正确加载
+          if (typeof '{{ site.disqus.shortname }}' === 'string' && '{{ site.disqus.shortname }}' !== '') {
+            var disqus_config = function () {
+              this.page.url = '{{ page.url | absolute_url }}';  // 确保URL正确（带协议和域名）
+              this.page.identifier = '{{ page.id }}';  // 文章唯一标识（避免重复评论）
+            };
+            (function() {
+              var d = document, s = d.createElement('script');
+              s.src = 'https://{{ site.disqus.shortname }}.disqus.com/embed.js';
+              s.setAttribute('data-timestamp', +new Date());
+              // 修复脚本加载位置（优先放body底部）
+              (d.body || d.head).appendChild(s);
+            })();
+          } else {
+            // 配置错误时显示提示
+            document.getElementById('disqus_thread').innerHTML = '<p style="color: #666; text-align: center; padding: 2rem;">评论区配置未完成，请检查 Disqus shortname 设置。</p>';
+          }
+        </script>
+        <noscript>请启用 JavaScript 以查看 <a href="https://disqus.com/?ref_noscript">Disqus 提供的评论</a>。</noscript>
+      </section>
+    {% else %}
+      <!-- 无配置时显示提示 -->
+      <section class="max-w-3xl mx-auto mt-16">
+        <h2 class="text-2xl font-bold mb-8 pb-2 border-b border-gray-200">评论区</h2>
+        <p style="color: #666; text-align: center; padding: 2rem;">评论功能未启用，请在 _config.yml 中配置 disqus.shortname。</p>
       </section>
     {% endif %}
   </main>
