@@ -340,9 +340,59 @@
       opacity: 0.8;
       font-size: 0.9rem;
     }
+    /* ———— 新增：不蒜子统计美化样式 ———— */
+    .busuanzi-stats {
+      margin: 3rem 0;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .stats-card {
+      background-color: var(--light-gray);
+      padding: 1.2rem;
+      border-radius: 8px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border-left: 4px solid var(--secondary-color);
+    }
+    .stats-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .stats-card i {
+      font-size: 1.5rem;
+      color: var(--secondary-color);
+      margin-bottom: 0.8rem;
+    }
+    .stats-card .number {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin: 0 0 0.5rem 0;
+    }
+    .stats-card .label {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0;
+    }
+    .stats-section-title {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin: 0 0 1.5rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--secondary-color);
+      display: inline-block;
+    }
     /* 响应式适配 */
     @media (max-width: 768px) {
-      .posts-list, .friends-grid {
+      .posts-list, .friends-grid, .stats-grid {
         grid-template-columns: 1fr;
       }
       .site-title {
@@ -528,7 +578,53 @@
       <h2 class="section-title">Statistics</h2>
       <div id="visitor-map"></div>
     </section>
+
+    <!-- ———— 美化后的不蒜子统计区域 ———— -->
+    <section class="busuanzi-stats">
+      <h2 class="stats-section-title">访问统计</h2>
+      <div class="stats-grid">
+        <!-- 总访问量 -->
+        <div class="stats-card">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+          <div class="number" id="busuanzi_site_pv">加载中...</div>
+          <p class="label">本站总访问量</p>
+        </div>
+        <!-- 总访客数 -->
+        <div class="stats-card">
+          <i class="fa fa-users" aria-hidden="true"></i>
+          <div class="number" id="busuanzi_site_uv">加载中...</div>
+          <p class="label">本站总访客数</p>
+        </div>
+        <!-- 本页阅读量 -->
+        <div class="stats-card">
+          <i class="fa fa-file-text" aria-hidden="true"></i>
+          <div class="number" id="busuanzi_page_pv">加载中...</div>
+          <p class="label">本页总阅读量</p>
+        </div>
+        <!-- 本页访客数 -->
+        <div class="stats-card">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          <div class="number" id="busuanzi_page_uv">加载中...</div>
+          <p class="label">本页总访客数</p>
+        </div>
+        <!-- 今日访问量 -->
+        <div class="stats-card">
+          <i class="fa fa-line-chart" aria-hidden="true"></i>
+          <div class="number" id="busuanzi_today_site_pv">加载中...</div>
+          <p class="label">今日访问量</p>
+        </div>
+        <!-- 今日访客数 -->
+        <div class="stats-card">
+          <i class="fa fa-user-plus" aria-hidden="true"></i>
+          <div class="number" id="busuanzi_today_site_uv">加载中...</div>
+          <p class="label">今日访客数</p>
+        </div>
+      </div>
+    </section>
+    <!-- ———— 统计区域结束 ———— -->
   </main>
+
+  <script src="//api.busuanzi.cc/static/3.6.9/busuanzi.min.js" defer></script>
 
   <!-- 底部版权信息 -->
   <footer class="site-footer">
@@ -574,5 +670,6 @@
       });
     });
   </script>
+
 </body>
 </html>
