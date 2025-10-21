@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title | default: site.title }} | {{ site.description }}</title>
+  <title>{{ page.title | default: site.title }}</title>
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
   <!-- 引入地图样式 -->
@@ -191,6 +191,7 @@
       font-size: 0.95rem;
       color: #666;
     }
+
     /* 文章列表卡片 */
     .posts-list {
       display: grid;
@@ -327,6 +328,68 @@
       width: 100%;
       border-radius: 8px;
       box-shadow: var(--shadow);
+    }
+    /* 统计区块整体：紧凑、低调 */
+    .vercount {
+      margin: 20px 0; /* 上下间距适中，不占用过多空间 */
+      padding: 15px 20px; /* 内边距收紧，保持紧凑感 */
+      background: #f9f9f9; /* 浅灰背景，轻微区分但不抢眼 */
+      border-radius: 6px; /* 圆角柔和，不尖锐 */
+      border: 1px solid #eee; /* 细边框，增强边界但不突兀 */
+    }
+
+    /* 标题：简洁不夸张 */
+    .section-title {
+      margin: 0 0 12px 0; /* 底部仅留少量间距 */
+      font-size: 16px; /* 字体偏小，避免喧宾夺主 */
+      color: #555; /* 中灰色，比正文稍深但不刺眼 */
+      font-weight: 500; /* 半粗体，不过分强调 */
+      text-transform: uppercase; /* 大写字母增强简约感（可选） */
+      letter-spacing: 0.5px;
+    }
+
+    /* 统计项容器：横向排列，紧凑分布 */
+    .vercount-stats {
+      display: flex;
+      flex-wrap: wrap; /* 小屏幕自动换行 */
+      gap: 18px 25px; /* 项之间间距适中 */
+      align-items: center;
+    }
+
+    /* 单个统计项：标签与数值垂直对齐 */
+    .vercount-item {
+      display: flex;
+      flex-direction: column; /* 标签在上，数值在下 */
+      gap: 4px; /* 标签与数值间距小 */
+    }
+
+    /* 标签样式：低调弱化 */
+    .vercount-label {
+      font-size: 12px; /* 小字标签，不抢注意力 */
+      color: #888; /* 浅灰色，弱化标签 */
+    }
+
+    /* 数值样式：清晰但不突出 */
+    .vercount-value {
+      font-size: 14px; /* 数值略大于标签，保持适中 */
+      color: #333; /* 深灰主色，比标签清晰但不刺眼 */
+      font-weight: 500; /* 轻微加粗，保证可读性 */
+    }
+
+    /* 加载状态优化：更柔和的提示 */
+    .vercount-value:empty::before {
+      content: 'Loading';
+      color: #bbb; /* 更浅的灰色，弱化加载提示 */
+      font-style: italic; /* 斜体区分加载状态 */
+    }
+
+    /* 响应式调整：小屏幕纵向排列 */
+    @media (max-width: 576px) {
+      .vercount-stats {
+        flex-direction: column;
+        align-items: flex-start; /* 左对齐更紧凑 */
+        gap: 12px;
+      }
     }
     /* 底部版权信息 */
     .site-footer {
@@ -579,52 +642,79 @@
       <div id="visitor-map"></div>
     </section>
 
-    <!-- ———— 美化后的不蒜子统计区域 ———— -->
-    <section class="busuanzi-stats">
+    <section class="vercount">
+      <h2 class="section-title">Statistics</h2>
+      <div class="vercount-stats">
+        <div class="vercount-item">
+          <span class="vercount-label">Total Page View</span>
+          <span class="vercount-value" id="vercount_value_page_pv">Loading</span>
+        </div>
+        <div class="vercount-item">
+          <span class="vercount-label">Total Visits</span>
+          <span class="vercount-value" id="vercount_value_site_pv">Loading</span>
+        </div>
+        <div class="vercount-item">
+          <span class="vercount-label">Total Visitors</span>
+          <span class="vercount-value" id="vercount_value_site_uv">Loading</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ———— 统计区域结束 ———— -->
+  </main>
+<!-- 
+    <!-- <section class="busuanzi-stats">
       <h2 class="stats-section-title">Statistics</h2>
-      <div class="stats-grid">
+      <div class="stats-grid"> -->
         <!-- 总访问量 -->
-        <div class="stats-card">
+        <!-- <div class="stats-card">
           <i class="fa fa-eye" aria-hidden="true"></i>
           <div class="number" id="busuanzi_site_pv">加载中...</div>
           <p class="label">本站总访问量</p>
-        </div>
+        </div> -->
         <!-- 总访客数 -->
-        <div class="stats-card">
+        <!-- <div class="stats-card">
           <i class="fa fa-users" aria-hidden="true"></i>
           <div class="number" id="busuanzi_site_uv">加载中...</div>
           <p class="label">本站总访客数</p>
-        </div>
+        </div> -->
         <!-- 本页阅读量 -->
-        <div class="stats-card">
+        <!-- <div class="stats-card">
           <i class="fa fa-file-text" aria-hidden="true"></i>
           <div class="number" id="busuanzi_page_pv">加载中...</div>
           <p class="label">本页总阅读量</p>
-        </div>
+        </div> -->
         <!-- 本页访客数 -->
-        <div class="stats-card">
+        <!-- <div class="stats-card">
           <i class="fa fa-user" aria-hidden="true"></i>
           <div class="number" id="busuanzi_page_uv">加载中...</div>
           <p class="label">本页总访客数</p>
-        </div>
+        </div> -->
         <!-- 今日访问量 -->
-        <div class="stats-card">
+        <!-- <div class="stats-card">
           <i class="fa fa-line-chart" aria-hidden="true"></i>
           <div class="number" id="busuanzi_today_site_pv">加载中...</div>
           <p class="label">今日访问量</p>
-        </div>
+        </div> -->
         <!-- 今日访客数 -->
-        <div class="stats-card">
+        <!-- <div class="stats-card">
           <i class="fa fa-user-plus" aria-hidden="true"></i>
           <div class="number" id="busuanzi_today_site_uv">加载中...</div>
           <p class="label">今日访客数</p>
         </div>
       </div>
-    </section>
+    </section> -->
+    
     <!-- ———— 统计区域结束 ———— -->
   </main>
+<!-- 
+  <script src="//api.busuanzi.cc/static/3.6.9/busuanzi.min.js" defer></script> -->
 
-  <script src="//api.busuanzi.cc/static/3.6.9/busuanzi.min.js" defer></script>
+
+  <!-- 10.21 换统计 -->
+   <script defer src="https://events.vercount.one/js"></script>
+
+
 
   <!-- 底部版权信息 -->
   <footer class="site-footer">
