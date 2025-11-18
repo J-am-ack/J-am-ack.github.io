@@ -23,7 +23,7 @@
       margin: 0;
       padding: 0;
     }
-    /* 头部导航栏（修改为带背景图样式） */
+    
     .site-header {
       position: relative;
       overflow: hidden;
@@ -76,18 +76,18 @@
     }
     .site-description {
       font-size: 1rem;
-      text-align: center; /* 新增：文本居中 */
-      white-space: pre-line; /* 可选：增强换行兼容性 */
-      color: #333333; /* 改为你需要的颜色（例如深灰色） */
-      /* 可选：增加文字阴影增强可读性 */
+      text-align: center; 
+      white-space: pre-line; 
+      color: #333333; 
+      
       text-shadow: 0 1px 2px rgba(0,0,0,0.2);
       opacity: 0.9;
       max-width: 600px;
       margin: 0;
-      margin-bottom: 1rem; /* 新增：给联系方式区域留间距 */
+      margin-bottom: 1rem; 
     }
 
-    /* ———— 新增：联系方式区域样式 ———— */
+   
     .contact-section {
       display: flex;
       justify-content: center;
@@ -97,7 +97,7 @@
       margin: 1rem 0; /* 上下间距 */
     }
     .contact-icon {
-      width: 44px; /* 图标大小 */
+      width: 44px; 
       height: 44px;
       border-radius: 50%;
       background-color: var(--light-gray);
@@ -109,12 +109,12 @@
       box-shadow: var(--shadow);
       transition: all 0.3s ease;
       cursor: pointer;
-      text-decoration: none; /* 清除链接下划线 */
+      text-decoration: none; 
     }
     .contact-icon:hover {
-      transform: translateY(-3px) scale(1.05); /*  hover 上浮+轻微放大 */
+      transform: translateY(-3px) scale(1.05); 
       background-color: var(--secondary-color);
-      color: white; /* hover 时图标变白 */
+      color: white; 
     }
     /* 微信/公众号二维码弹窗样式 */
     .contact-popover {
@@ -376,7 +376,7 @@
       font-weight: 500; /* 轻微加粗，保证可读性 */
     }
 
-    /* 加载状态优化：更柔和的提示 */
+   
     .vercount-value:empty::before {
       content: 'Loading';
       color: #bbb; /* 更浅的灰色，弱化加载提示 */
@@ -475,7 +475,7 @@
         margin-right: 0;
         margin-bottom: 1rem;
       }
-      /* 响应式：移动端联系方式图标间距缩小 */
+      
       .contact-section {
         gap: 1rem;
       }
@@ -496,7 +496,7 @@
     <div class="header-content">
       <div class="avatar-container">
        
-        <img src="{{ '/assets/avatar.jpg' | relative_url }}" alt="头像" class="avatar">
+        <img src="{{ '/assets/avatar.jpeg' | relative_url }}" alt="头像" class="avatar">
       </div>
       <h1 class="site-title">{{ site.title }}</h1>
       <p class="site-description">{{ site.description | replace: "\n", "<br>" }}</p>
