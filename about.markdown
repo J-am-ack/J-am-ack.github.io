@@ -1,11 +1,13 @@
 ---
-layout: page
+layout: default
 title: About
 permalink: /about/
 ---
 
 
-If you're insterested in me, please feel free to contact me by email:
+
+For any questions or inquiries, or if you would like to collaborate on a project, please don't hesitate to contact me.
+Please feel free to contact me by email:
 <EMAIL>3922909893@qq.com
 
 
