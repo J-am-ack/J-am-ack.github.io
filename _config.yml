@@ -86,7 +86,7 @@ nav:
 
 
 friends:
-  - name: "xisensal"
+  - name: "xisenal"
     url: "https://xisenal.github.io/"
     avatar: friends\avatars\xisanal.jpg
     description: "西瓜qwq"
@@ -94,6 +94,15 @@ friends:
     url: "https://hzmsailor.com/"
     avatar: friends\avatars\hzm.png
     description: "session"
+  - name: "TRpuppy"
+    url: "https://trpuppy.vercel.app/"
+    avatar: friends\avatars\xq.png
+    description: "谦哥yyds"
+  - name: "Jing Xu's Site"
+    url: "https://iculizhi.github.io/"
+    avatar: friends\avatars\xj.jpg
+    description: "上士闻道，勤而行之"
+  
 
 
 
