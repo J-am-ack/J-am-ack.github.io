@@ -323,7 +323,17 @@
     <!-- 评论区（修复后） -->
     {% if site.disqus.shortname %}
       <section class="max-w-3xl mx-auto mt-16 comment-section">  <!-- 新增类名便于样式控制 -->
-        <h2 class="text-2xl font-bold mb-8 pb-2 border-b border-gray-200">评论区</h2>
+        <h2 class="text-2xl font-bold mb-8 pb-2 border-b border-gray-200">Comments</h2>
+        <!-- try utterance-->
+        <div class="mb-12">
+          <script src="https://utteranc.es/client.js"
+            repo="J-am-ack/J-am-ack.github.io"  
+            issue-term="pathname"   
+            theme="github-light"   
+            crossorigin="anonymous"
+            async>
+          </script>
+        </div>
         <div id="disqus_thread"></div>
         <script>
           // 确保短名称正确加载

@@ -119,3 +119,6 @@ kramdown:
 
 disqus:
   shortname: https-j-am-ack-github-io
+
+utterances:
+  repo: J-am-ack/J-am-ack.github.io
