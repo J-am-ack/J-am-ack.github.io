@@ -202,6 +202,16 @@ $$ P = v_0 + l * v_d $$
 
 
 
+### 1 NeRF
+
+这部分可能不会写的特别完全（NeRF后续的一些变种之类），可能还是先focus2020这一篇中提到的一些技术和主观结果，毕竟精力有限qwq）
+
+#### 1.1 NeRF的一些trick
+
+
+
+#### 1.2 NeRF的一些results
+
 
 ### Reference
 1. [ Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik, Jonathan T Barron, Ravi Ramamoorthi, and Ren Ng. 2020. Nerf: Representing scenes as neural radiance fields for view synthesis. In European conference on computer vision.](https://arxiv.org/abs/2003.08934)
