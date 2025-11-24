@@ -85,7 +85,123 @@ R是一个3x3的旋转矩阵, C_w是相机在全局坐标系中的位置, X_w是
 
 我们如果称变换前的坐标系叫做 "旧坐标系", 变换后的坐标系叫做 "新坐标系"
 
+
+对于这个新的四维矩阵，我们还有一个性质必须要说明：
+![矩阵中的性质](/assets/post_images/nerf_5.png)
 这里面的前三列, 分别表示 新坐标系 (红的是 x 轴, 紫的是 y 轴, 黄的是 z 轴) 在旧坐标系中的方向, 最后一列 (绿色) 是 新坐标系原点在旧坐标系中的位置.
+
+
+
+我们先画个示意图简化讨论这个问题：
+P（C）是3D物体上的某个点，A是相机的位置，C'是我们希望刻画的2维的image plane上的点
+
+![图6](/assets/post_images/nerf_6.png)
+
+
+那么我们想要刻画的就是C'（xi,yi）
+
+我们有B'A = focal length，记为f
+假设相机参考系：
+P：（X,Y,Z）
+
+那么C'的坐标可以表示为：    
+$$C'_x = (X/Z)\times f$$
+$$C'_y = (Y/Z) \times f$$
+
+
+```
+if not os.path.exists('tiny_nerf_data.npz'):
+  !wget http://cseweb.ucsd.edu/~viscomp/projects/LF/papers/ECCV20/nerf/tiny_nerf_data.npz
+
+data = np.load('tiny_nerf_data.npz')
+images = data['images']
+poses = data['poses']
+focal = data['focal']
+
+```
+这里可以看到实际代码中数据集的组织
+images, 就是从各个角度拍的 2D 图片
+poses, 就是代表相机的位置及角度,具体说就是我们刚才说的这个四维变换矩阵
+focal, 就是前面讲过的 focal length f
+
+那么再由我们刚才提到的特殊性质，
+我们自然有最后一列就是 相机位置 (在全局坐标参考系中). 然后第三列就是 相机的角度 (因为第三列是相机坐标系的 z 轴, 而相机都是沿着 z 轴拍摄的)
+
+
+可视化出相机方向大概就这样：
+![alt text](/assets/post_images/nerf_7.png)
+
+最后有了以上的推导，我们就可以刻画出Ray了
+我们首先引入第三个参考系：
+图片坐标参考系 (Image Plane Coordinate Frame)
+首先, 这个图片坐标参考系是二维的, [注意 Image Plane 的左上角的像素位置设为 (0, 0)]
+其次, 他其实就是 相机坐标参考系 的退化版, 相当于 相机坐标参考系 去掉了 z 轴.
+
+我们知道, 画一个 Ray 其实很简单, 那就是 
+1) 找到一个 Image Plane 上的像素点; 
+2) 找到 相机 (你的眼睛) 原点; 
+3) 把这两个点连线.
+
+假设某个像素点的位置是 (i, j) , 那么他在 相机坐标参考系 中的位置是 (i - width*0.5, j - height*0.5) [因为相机坐标参考系的 z 轴正好穿过 Image Plane 的中点]
+
+那么这个 Ray 的方向就是
+
+((i - width*0.5) / focal_length, (j - height*0.5) / focal_length, 1)
+
+也是上面图6的α
+注意到, 我们刚刚求出来的方向, 是在相机坐标参考系求的, 我们还要把它转到 全局坐标参考系 中, 那就是直接 ×转换矩阵
+
+而Ray的原点实际上我们也讨论过了，就是转换矩阵的最后一列前三行
+
+```
+directions = torch.stack([(i - width * .5) / focal_length,
+                            -(j - height * .5) / focal_length,
+                            -torch.ones_like(i) 
+                           ], dim=-1)  # 在相机坐标参考系 中的 方向
+
+  
+rays_d = torch.sum(directions[..., None, :] * c2w[:3, :3], dim=-1) # 在全局坐标参考系 中的 方向
+
+  
+rays_o = c2w[:3, -1].expand(rays_d.shape)                          # 在全局坐标参考系 中的 相机/Ray 原点
+```
+
+
+有了Ray，下一步就是采样上面的点：
+NeRF 的关键在于找到 Ray 和 Volume Data (就是 3D 物体) 之间的交点, 然后对这些交点的（R,G,B,$\sigma$）做积分. 这里的 $\sigma$ 就是这个点的"透明度"）做积分.
+
+没有3D模型的话我们不能直接找到这些点
+NeRF 采用的方式是 "试"
+
+先随机的沿着当前 Ray 采样一堆点, 然后我带入到 NeRF 中, 如果某个点的$\alpha = 0 $, 那么说明这个点不是交点, 反之就是.
+> 这里感觉还是不太清晰（，为啥α是0啊，欢迎comment
+
+$$ P = v_0 + l * v_d $$
+所以我们沿着Ray找点无非是试不同的l
+
+采样方法：
+比如均匀采样 (Stratified Sampling), 就是均匀的试不同的l
+另外也有一些方法, 比如在均匀采样的基础上加上一些 perturbation（扰动）.
+
+另外, 因为我们肯定是只能采样有限个点, 那么一般会确定一个最大和最小的 near < l < far
+
+像原 NeRF 论文中, near = 2, far = 6.
+
+
+
+
+
+#### 0.1 原始NeRF 整体架构和做法
+有了图形学原理，我们就知道了NeRF是怎么采样和利用、组织数据的，下面看下NeRF的架构和设计
+
+这篇2020的工作实际上在网络结构上非常简单粗暴，就是全连接层
+![alt text](/assets/post_images/nerf_8.png)
+
+
+![alt text](/assets/post_images/nerf_9.png)
+
+
+
 
 ### Reference
 1. [ Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik, Jonathan T Barron, Ravi Ramamoorthi, and Ren Ng. 2020. Nerf: Representing scenes as neural radiance fields for view synthesis. In European conference on computer vision.](https://arxiv.org/abs/2003.08934)
