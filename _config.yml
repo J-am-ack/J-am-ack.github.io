@@ -106,6 +106,8 @@ friends:
   
 
 
+# 1126
+markdown: kramdown
 
 kramdown:
   math_engine: mathjax
