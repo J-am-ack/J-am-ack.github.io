@@ -135,10 +135,13 @@ focal, 就是前面讲过的 focal length f
 我们首先引入第三个参考系：
 
 图片坐标参考系 (Image Plane Coordinate Frame)
+
 首先, 这个图片坐标参考系是二维的, [注意 Image Plane 的左上角的像素位置设为 (0, 0)]
+
 其次, 他其实就是 相机坐标参考系 的退化版, 相当于 相机坐标参考系 去掉了 z 轴.
 
 我们知道, 画一个 Ray 其实很简单, 那就是
+
 1) 找到一个 Image Plane 上的像素点; 
 2) 找到 相机 (你的眼睛) 原点; 
 3) 把这两个点连线.
@@ -148,7 +151,7 @@ focal, 就是前面讲过的 focal length f
 
 那么这个 Ray 的方向就是：
 
-$$((i - width*0.5) / focal_length, (j - height*0.5) / focal_length, 1)$$
+$$((i - width*0.5) / \text{focal_length}, (j - height*0.5) / \text{focal_length}, -1)$$
 
 也是上面图6的α
 
