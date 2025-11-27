@@ -9,7 +9,7 @@ comments: true
 
 
 ## NeRF Learning
-#### 2025-11-14, updated on 2025-11-22
+#### 2025-11-14, updated on 2025-11-27
 
 ### Introduction
 
@@ -341,13 +341,13 @@ $$ P = v_0 + l * v_d $$
 （tips：实际上，用Blender渲染就不会出现这个问题。渲染可以提供所有视角所有scale的监督图像。）
 
 
-![alt text](ee827728-ec71-46ce-acdf-6161a84fde65.png)
+![alt text](/assets/post_images/nerf_19.png)
 超采样策略将一个像素（实线）分割为多个子像素（虚线），并为每个子像素绘制一条射线。因此，与普通的NeRF相比，场景中更多的3D点可以被对应和约束。
 
 超采样充分利用了NeRF引入的交叉视图一致性(cross-view consistency)到亚像素级(sub-pixel level)，即一个位置可以通过多个视点进行对应。虽然NeRF对每个像素只拍摄一条射线，并优化了该射线上的点，但超采样限制了三维空间中更多的位置，更好地利用了输入图像中的多视图信息。换句话说，超级采样直接在训练时优化了一个更密集的辐射场。
 
 优化后要对应调整监督的MSE-loss，适配监督图像的大小
-![alt text](image.png)
+![alt text](/assets/post_images/nerf_20.png)
 
 > 
 > 关于这部分看到的一个锐评（
