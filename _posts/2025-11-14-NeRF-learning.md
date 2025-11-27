@@ -370,5 +370,7 @@ $$ P = v_0 + l * v_d $$
 > 欢迎comment讨论
 
 ### Reference
+
 1.[ Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik, Jonathan T Barron, Ravi Ramamoorthi, and Ren Ng. 2020. Nerf: Representing scenes as neural radiance fields for view synthesis. In European conference on computer vision.](https://arxiv.org/abs/2003.08934)
+
 2.[ NeRF-SR: Neural Radiance Field for Super-Resolution](https://arxiv.org/abs/2112.01759)
