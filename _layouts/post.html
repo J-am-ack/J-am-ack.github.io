@@ -114,20 +114,37 @@
     MathJax.config = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],  // 行内公式：$E=mc^2$
-        displayMath: [['$$', '$$'], ['\\[', '\\]']]  // 块级公式：$$公式$$
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],  // 块级公式：$$公式$$
+        processEscapes: true,  // 关键：启用转义，避免 $ 被误解析（必加）
+        packages: {'[+]': ['amsmath', 'amssymb']}  // 确保支持 \mathbf{} 等向量语法
       },
       startup: {
         pageReady: function() {
           return MathJax.startup.defaultPageReady().then(function() {
             // 修复公式渲染后布局偏移
             document.querySelectorAll('.MathJax').forEach(el => {
-              el.style.display = 'inline-block';
+              el.style.display = 'inline';//
             });
           });
         }
       }
     };
   </script>
+  <!-- katex数学公式渲染   -->
+
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SVg" crossorigin="anonymous">
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8G" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$', right: '$', display: false}, // 行内公式
+        {left: '$$', right: '$$', display: true}  // 块级公式
+      ]
+    });">
+  </script> -->
+
+
 </head>
 <body class="bg-light text-dark font-sans">
   <!-- 导航栏 -->
