@@ -61,11 +61,10 @@ $$P = v_0 + t * v_d $$
 我们尝试看一看理解NeRF的数据集组织：
 首先, 我们引入几个概念
 
-全局坐标参考系 (World Coordinate Frame)
-相机坐标参考系 (Camera Coordinate Frame)
-坐标变换 (Coordinate Transformation)
+全局坐标参考系 (World Coordinate Frame)  
+相机坐标参考系 (Camera Coordinate Frame)  
+坐标变换 (Coordinate Transformation)  
 投影变换 (Projection Transformation)
-
 
 全局一般就是物理世界的尺度，一般不会变
 相机坐标参考系, 是针对相机的某个位置而言的. 对于同一个 3D 物体,可以从不同的角度去拍它, 那么自然一旦相机的位置 (pose) 发生改变, 相机坐标参考系也会变化
@@ -74,7 +73,7 @@ $$P = v_0 + t * v_d $$
 转换可以写成一个数学公式：
 $$X_c = R \times (X_w - C_w)$$
 
-R是一个3x3的旋转矩阵, C_w是相机在全局坐标系中的位置, X_w是全局坐标系下的点
+R是一个3x3的旋转矩阵, $C_w$是相机在全局坐标系中的位置, $X_w$是全局坐标系下的点
 
 ![alt text](/assets/post_images/nerf_4.png)
 
@@ -351,7 +350,8 @@ $$ P = v_0 + l * v_d $$
 
 > 
 > 关于这部分看到的一个锐评（
-> 这种感觉有些多此一举，大可以直接用光线的数量多少来做，何必非得在物理上划分成子块。或者我一开始就用子块大小的规模作为我的像素块就得了
+> 
+> 感觉有些多此一举，大可以直接用光线的数量多少来做，何必非得在物理上划分成子块。或者我一开始就用子块大小的规模作为我的像素块就得了
 >
 
 #### 2.2 Patch-based Refinement
@@ -373,4 +373,4 @@ $$ P = v_0 + l * v_d $$
 
 1.[ Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik, Jonathan T Barron, Ravi Ramamoorthi, and Ren Ng. 2020. Nerf: Representing scenes as neural radiance fields for view synthesis. In European conference on computer vision.](https://arxiv.org/abs/2003.08934)
 
-2.[ NeRF-SR: Neural Radiance Field for Super-Resolution](https://arxiv.org/abs/2112.01759)
+2.[ NeRF-SR: Neural Radiance Field for Super-Resolution ](https://arxiv.org/abs/2112.01759)

@@ -109,14 +109,14 @@
     }
   </style>
   <!-- 数学公式渲染：MathJax -->
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
   <script>
     MathJax.config = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],  // 行内公式：$E=mc^2$
         displayMath: [['$$', '$$'], ['\\[', '\\]']],  // 块级公式：$$公式$$
-        processEscapes: true,  // 关键：启用转义，避免 $ 被误解析（必加）
-        packages: {'[+]': ['amsmath', 'amssymb']}  // 确保支持 \mathbf{} 等向量语法
+        processEscapes: true,  // 
+        packages: {'[+]': ['amsmath', 'amssymb']}  // 确保支持 向量语法
       },
       startup: {
         pageReady: function() {
@@ -127,6 +127,10 @@
             });
           });
         }
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
       }
     };
   </script>
