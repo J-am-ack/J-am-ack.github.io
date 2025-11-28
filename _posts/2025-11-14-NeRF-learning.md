@@ -369,8 +369,30 @@ $$ P = v_0 + l * v_d $$
 > 还是小小锐评一下，感觉NeRF-SR这个工作好像更多就是借用了渲染数据的增加（亚像素）来提升了分辨率，在理论上似乎没有特别值得mark的insight （？ qwq
 > 欢迎comment讨论
 
+
+
+### 3 DiSR-NeRF
+
+该论文介绍了一种名为 DiSR-NeRF 的扩散引导框架，用于视图一致的超分辨率 NeRF（神经辐射场）。其核心创新点在于利用强大的2D超分辨率模型，而无需依赖于高分辨率参考图像。该方法解决了低分辨率图像在不同视角之间存在的不一致性，通过引入迭代 3D 同步 (I3DS) 的策略，利用 NeRF 的多视图一致性特性，改善图像质量。
+
+
+
+#### 3.1 I3DS：Iterative 3D Synchronization
+
+I3DS 分为两个阶段：上采样阶段和同步阶段。在上采样阶段，来自低分辨率 NeRF 渲染的图像通过扩散模型进行放大；在同步阶段，这些经过上采样的图像则用于更新3D表示。该过程交替进行，以引导模型收敛到一致的细节。
+
+具体而言，在上采样阶段，首先对低分辨率图像进行4倍的放大。然后，通过标准的 NeRF 训练程序更新 NeRF 参数，同时进行多视图采样。这样的话，某个视图的细节信息能够在所有视角中得以统一。
+
+#### 3.2 RSD：Renoised Score Distillation
+
+RSD 是一种本文提出的一种新的分数蒸馏目标，旨在结合使用祖先采样和评分蒸馏采样（SDS）的取长补短。RSD 通过优化过程中的中间去噪潜变量，逐步生成高分辨率图像。该过程通过一个线性递减的时间调度展开，逐步构建细节。
+一方面，RSD 能够生成更锋利的细节；另一方面，它也能够保持与条件低分辨率图像的一致性。通过这种方式，RSD在各种细节方面都能显著提高性能，相较于传统的祖先采样法更具优势。
+
+
+
 ### Reference
 
 1.[ Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik, Jonathan T Barron, Ravi Ramamoorthi, and Ren Ng. 2020. Nerf: Representing scenes as neural radiance fields for view synthesis. In European conference on computer vision.](https://arxiv.org/abs/2003.08934)
 
-2.[ NeRF-SR: Neural Radiance Field for Super-Resolution ](https://arxiv.org/abs/2112.01759)
+2.[ Wang, Chen, et al. "NeRF-SR: High quality neural radiance fields using supersampling." In proceedings of ACM International Conference on Multimedia (ACM MM). 2022. ](https://arxiv.org/abs/2112.01759)
+
