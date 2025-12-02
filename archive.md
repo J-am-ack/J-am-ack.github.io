@@ -1,10 +1,9 @@
 ---
-layout: default  # 使用页面布局（如果没有page布局，可改为default）
+layout: default  
 title: 归档
 permalink: /archive/  # 固定路径，与链接对应
 ---
 
-# 文章归档
 
 <style>
   .archive-container {
@@ -54,7 +53,7 @@ permalink: /archive/  # 固定路径，与链接对应
 </style>
 
 <div class="archive-container">
-  <h1 class="text-center text-3xl font-bold mb-10">文章归档</h1>
+  <h1 class="text-center text-3xl font-bold mb-8">文章归档</h1>
 
   {% if site.posts.size > 0 %}
     {% assign previous_year = nil %}  <!-- 初始化年份变量为 nil -->
