@@ -342,6 +342,7 @@
       </section>
     {% endif %} -->
     <!-- 评论区（修复后） -->
+     <!--utterances评论区-->
     {% if site.disqus.shortname %}
       <section class="max-w-3xl mx-auto mt-16 comment-section">  <!-- 新增类名便于样式控制 -->
         <h2 class="text-2xl font-bold mb-8 pb-2 border-b border-gray-200">Comments</h2>
@@ -386,7 +387,7 @@
     {% endif %}
 
 
-    {% if page.comments %}
+    <!-- {% if page.comments %}
       <div id="disqus_thread"></div>
       <script>
           /**
@@ -409,11 +410,42 @@
 
 
 
-    {% endif %}
+    {% endif %} -->
   </main>
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-12">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="max-w-4xl mx-auto">
+              <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                  <div class="mb-6 md:mb-0">
+                      <h3 class="text-xl font-semibold mb-2">{{ site.title | default: "Personal Site" }}</h3>
+                      <p class="text-gray-400">© {{ "now" | date: "%Y" }} All rights reserved.</p>
+                  </div>
+                  <div class="flex space-x-6">
+                      <!-- Social Media Icons -->
+                      <a href="https://github.com/J-am-ack" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors duration-200">
+                          <i class="fa fa-github text-xl"></i>
+                      </a>
+                      <a href="https://space.bilibili.com/3546703625980039?spm_id_from=333.1007.0.0" target="_blank" rel="noopener" class="text-gray-400 hover:text-bilibili transition-colors duration-200">
+                          <i class="fa fa-play-circle text-xl"></i>
+                      </a>
+                      <a href="https://www.zhihu.com/people/7-16-5-25-69" target="_blank" rel="noopener" class="text-gray-400 hover:text-zhihu transition-colors duration-200">
+                          <i class="fa fa-question-circle text-xl"></i>
+                      </a>
+                      <a href="https://www.dongqiudi.com/user/your-id" target="_blank" rel="noopener" class="text-gray-400 hover:text-dongqiudi transition-colors duration-200">
+                          <i class="fa fa-futbol-o text-xl"></i>
+                      </a>
+                  </div>
+              </div>
+              <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                  <p>Built with <i class="fa fa-heart text-accent"></i> using Jekyll & Tailwind CSS & Github pages.</p>
+              </div>
+          </div>
+      </div>
+  </footer>
 
-  <!-- 页脚 -->
-  <footer class="bg-dark text-white py-12 mt-20">
+
+  <!-- <footer class="bg-dark text-white py-12 mt-20">
     <div class="container mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-between items-center">
         <div class="mb-6 md:mb-0">
@@ -454,7 +486,8 @@
         </p>
       </div>
     </div>
-  </footer>
+  </footer> -->
+
 
   <!-- 返回顶部按钮 -->
   <button id="back-to-top" class="fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
