@@ -436,7 +436,7 @@ $$LPIPS = \sum_{l=1}^L w_l \times \frac{1}{H_l W_l C_l} \sum_{x,y,c} (F_l(I_d, x
 
 
 
-{% if page.comments %}
+<!-- {% if page.comments %}
 <div id="disqus_thread"></div>
 <script>
     /**
@@ -455,7 +455,7 @@ $$LPIPS = \sum_{l=1}^L w_l \times \frac{1}{H_l W_l C_l} \sum_{x,y,c} (F_l(I_d, x
     (d.head || d.body).appendChild(s);
     })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
 
 
 
