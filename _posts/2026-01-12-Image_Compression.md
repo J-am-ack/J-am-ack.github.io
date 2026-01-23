@@ -1,3 +1,12 @@
+---
+layout: post
+title:  "Image Compression Learning"
+date:   2026-01-12 20:00:01 +0800
+categories: CV Compression Learning
+cover: "assets/images/default-cover.jpg"
+comments: true
+---
+
 
 本文记录笔者学习图像压缩编码相关知识的notes.
 
@@ -59,7 +68,7 @@ DCT这一块感觉细致的写还非常多且复杂，目前就先简单了解�
 
 低频谱值位于左上部分，高频谱值位于右下部分。通过下述公式可知。左上角F(0,0)相应频率为0，被称为DC系数，其它63个系数称为AC系数。
 
-![alt text](../assets/post_images/compression/image-1.png)
+![alt text](/assets/post_images/compression/image-1.png)
 
 一个基本的想法是说要**把“像素值”变成“频率系数”**
 
@@ -106,7 +115,7 @@ DCT系数÷量化表→四舍五入，这样高频很可能变成0
 
 
 
-![alt text](../assets/post_images/compression/image.png)
+![alt text](/assets/post_images/compression/image.png)
 
 
 
@@ -179,11 +188,11 @@ DCT系数÷量化表→四舍五入，这样高频很可能变成0
 
 
 传统的VAE：
-![alt text]../(assets/post_images/compression/6d7b9a55-1eac-44bd-99ce-d0f414397482.png)
+![alt text](/assets/post_images/compression/6d7b9a55-1eac-44bd-99ce-d0f414397482.png)
 
 
 本文架构：
-![alt text](../assets/post_images/compression/7171867c-9a48-4d47-ba79-f17962b63be2.png)
+![alt text](/assets/post_images/compression/7171867c-9a48-4d47-ba79-f17962b63be2.png)
 
 
 
@@ -228,11 +237,11 @@ DCT系数÷量化表→四舍五入，这样高频很可能变成0
 解码器从解码后的潜在表示重建最终图像。
 
 
-![alt text](../assets/post_images/compression/82f78fcf-1ab9-415b-833f-d2a6e656f1f9.png)
+![alt text](/assets/post_images/compression/82f78fcf-1ab9-415b-833f-d2a6e656f1f9.png)
 
 
 这篇文章的核心就是在之前的那个超先验模型的基础上，增加了一个上下文模型。上下文模型可以捕获局部依赖性，而超先验可以捕获全局依赖性。作者认为，这两个模型可以相互补充，以更好地捕获图像的全局和局部依赖性。
-![alt text](../assets/post_images/compression/038f40b0-8ad6-4ec6-877e-ef6acddaacad.png)
+![alt text](/assets/post_images/compression/038f40b0-8ad6-4ec6-877e-ef6acddaacad.png)
 
 
 
@@ -251,17 +260,16 @@ DCT系数÷量化表→四舍五入，这样高频很可能变成0
 技术方法
 所提出的方法建立在变分自编码器（VAE）框架之上，并具有两项关键创新：Transformer-CNN混合（TCM）块和用于熵建模的参数高效注意力机制。
 
-
-![alt text](../assets/post_images/compression/image-2.png)
+![alt text](/assets/post_images/compression/image-2.png)
 
 
 TCM
-![alt text](../assets/post_images/compression/859adaed-b7f2-4001-9776-f9d881312a75.png)
+![alt text](/assets/post_images/compression/859adaed-b7f2-4001-9776-f9d881312a75.png)
 
 
 Swin Transformer(SWAtten)
 
-![alt text](../assets/post_images/compression/280cbf6a-47af-406b-bb6c-dc2a7df0896a.png)
+![alt text](/assets/post_images/compression/280cbf6a-47af-406b-bb6c-dc2a7df0896a.png)
 
 
 
