@@ -20,6 +20,10 @@
 
 title: Jamming.Y's Site
 email: 3922909893@qq.com
+short_name: Jam Y
+role: Information and Computing Science Undergraduate
+affiliation: EECS, Peking University
+tagline: Exploring computer vision, recording what I learn, and enjoying the world beyond research.
 description: |- 
   Welcome to Jamming.Y's world! 
   I'm an underguaduate student majoring in Information and Computing Science at EECS,PKU.
@@ -50,16 +54,21 @@ paginate_path: /blog/page:num/
 
 
 nav:
-  - title: Homepage
+  - title: Home
     url: /
-  - title: About
-    url: /about/
+    icon: fa-home
   - title: Blog
     url: /blog/
+    icon: fa-book-open
+  - title: CV
+    url: /cv/
+    icon: fa-file-alt
   - title: Friends
     url: /friends/
-  - title: Stats
-    url: /stats/
+    icon: fa-user-friends
+  - title: About
+    url: /about/
+    icon: fa-user
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -86,19 +95,19 @@ nav:
 friends:
   - name: "xisenal"
     url: "https://xisenal.github.io/"
-    avatar: friends\avatars\xisanal.jpg
+    avatar: /friends/avatars/xisanal.jpg
     description: "西瓜qwq"
   - name: "dasai-hzm"
     url: "https://hzmsailor.github.io/"
-    avatar: friends\avatars\hzm.png
+    avatar: /friends/avatars/hzm.png
     description: "session"
   - name: "TRpuppy"
     url: "https://trpuppy.vercel.app/"
-    avatar: friends\avatars\xq.png
+    avatar: /friends/avatars/xq.png
     description: "谦哥yyds"
   - name: "Jing Xu's Site"
     url: "https://iculizhi.github.io/"
-    avatar: friends\avatars\xj.jpg
+    avatar: /friends/avatars/xj.jpg
     description: "上士闻道，勤而行之"
   
 

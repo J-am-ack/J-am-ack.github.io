@@ -1,0 +1,26 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <p class="footer-title">{{ site.short_name | default: site.author }}</p>
+      <p class="footer-note">Exploring vision, code, and the world beyond research.</p>
+    </div>
+    <div class="footer-links" aria-label="社交链接">
+      <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" aria-label="GitHub">
+        <i class="fab fa-github" aria-hidden="true"></i>
+      </a>
+      <a href="mailto:{{ site.email }}" aria-label="Email">
+        <i class="fas fa-envelope" aria-hidden="true"></i>
+      </a>
+      <a href="{{ '/feed.xml' | relative_url }}" aria-label="RSS">
+        <i class="fas fa-rss" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="footer-stats" aria-label="访问统计">
+      <a href="{{ '/pageviews/' | relative_url }}"><i class="fas fa-chart-line" aria-hidden="true"></i> Pageviews</a>
+      <span>PV <strong id="vercount_value_site_pv">—</strong></span>
+      <span>Visitors <strong id="vercount_value_site_uv">—</strong></span>
+    </div>
+    <p class="footer-copy">© {{ site.time | date: '%Y' }} {{ site.short_name | default: site.author }} · Built with Jekyll</p>
+  </div>
+</footer>
+<script defer src="https://events.vercount.one/js"></script>

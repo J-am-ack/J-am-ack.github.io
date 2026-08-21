@@ -5,21 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{ '/assets/css/site-theme.css' | relative_url }}">
   {% seo %}
 </head>
-<body>
-  <!-- 引入导航栏 -->
+<body class="site-shell{% if page.body_class %} {{ page.body_class }}{% endif %}">
   {% include header.html %}
-
-  <!-- 页面内容 -->
-  <main class="container mx-auto px-4 py-12">
+  <main class="page-main">
     {{ content }}
   </main>
 
-  <!-- 引入页脚 -->
   {% include footer.html %}
-
-  <script src="{{ "/assets/js/main.js" | relative_url }}"></script>
+  <button class="back-to-top" type="button" aria-label="返回顶部" data-back-to-top><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+  <script src="{{ '/assets/js/site.js' | relative_url }}"></script>
 </body>
 </html>

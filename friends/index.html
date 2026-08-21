@@ -1,0 +1,24 @@
+---
+layout: default
+title: Friends
+permalink: /friends/
+body_class: friends-page
+---
+
+<header class="page-hero section-wrap">
+  <p class="eyebrow">People around the web</p>
+  <h1>Friends</h1>
+  <p>一些有趣的人和他们在互联网上的小小世界。点击卡片去拜访他们。</p>
+</header>
+
+<section class="section-wrap friends-grid">
+  {% for friend in site.friends %}
+  <a class="friend-card glass-card" href="{{ friend.url }}" target="_blank" rel="noopener">
+    <img src="{{ friend.avatar | relative_url }}" alt="{{ friend.name }} 的头像">
+    <div><h2>{{ friend.name }}</h2><p>{{ friend.description }}</p><span>Visit site <i class="fas fa-external-link-alt"></i></span></div>
+  </a>
+  {% endfor %}
+  <div class="friend-invite glass-card">
+    <i class="fas fa-paper-plane"></i><div><h2>Say hello</h2><p>也想交换友链？欢迎通过邮件联系我。</p><a href="mailto:{{ site.email }}">{{ site.email }}</a></div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+layout: default
+title: Pageviews
+permalink: /pageviews/
+body_class: stats-page
+---
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<header class="page-hero section-wrap"><p class="eyebrow">A small window into this site</p><h1>Pageviews</h1><p>访问统计是站点的辅助信息，因此它被安静地放在页脚，而不是主导航中。</p></header>
+<section class="section-wrap stats-layout">
+  <div class="stats-cards">
+    <article class="metric-card glass-card"><i class="fas fa-chart-line"></i><p>Total pageviews</p><strong id="page_site_pv">Loading…</strong></article>
+    <article class="metric-card glass-card"><i class="fas fa-users"></i><p>Unique visitors</p><strong id="page_site_uv">Loading…</strong></article>
+    <article class="metric-card glass-card"><i class="fas fa-eye"></i><p>This page</p><strong id="page_page_pv">Loading…</strong></article>
+  </div>
+  <div class="map-card glass-card"><div class="map-heading"><div><p class="eyebrow">Visitor map</p><h2>From around the world</h2></div><span>OpenStreetMap</span></div><div id="visitor-map" aria-label="访问者地图"></div></div>
+</section>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var map = L.map('visitor-map', { scrollWheelZoom: false }).setView([30, 100], 2);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+  var bindings = [['vercount_value_site_pv','page_site_pv'],['vercount_value_site_uv','page_site_uv'],['vercount_value_page_pv','page_page_pv']];
+  var observer = new MutationObserver(function () { bindings.forEach(function (ids) { var source=document.getElementById(ids[0]); var target=document.getElementById(ids[1]); if(source && target && source.textContent.trim()) target.textContent=source.textContent; }); });
+  var footer = document.querySelector('.footer-stats'); if (footer) observer.observe(footer, {subtree:true, childList:true, characterData:true});
+});
+</script>

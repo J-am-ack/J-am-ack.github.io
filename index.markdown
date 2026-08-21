@@ -1,48 +1,33 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
 title: Jamming Y's Site
 ---
 
+<section class="home-welcome" aria-labelledby="home-title">
+  <div class="home-welcome-inner">
+    <div class="home-avatar-wrap"><img class="home-avatar" src="{{ '/assets/avatar.jpeg' | relative_url }}" alt="Jam Y 的头像"></div>
+    <p class="home-kicker">Welcome to my world</p>
+    <h1 id="home-title">Jamming.Y’s<span class="home-title-space"> </span><br class="home-mobile-break">Site</h1>
+    <p class="home-role">{{ site.role }}<span aria-hidden="true"> · </span>{{ site.affiliation }}</p>
+    <div class="home-description">{{ site.description | newline_to_br }}</div>
+    <div class="home-actions">
+      <a class="home-action-primary" href="{{ '/blog/' | relative_url }}">Read my notes <i class="fas fa-arrow-right"></i></a>
+      <a class="home-action-secondary" href="{{ '/about/' | relative_url }}">More about me</a>
+    </div>
+    <div class="home-contact" aria-label="联系方式">
+      <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="mailto:{{ site.email }}" aria-label="Email" title="Email"><i class="fas fa-envelope"></i></a>
+      <div class="home-contact-popover"><button type="button" aria-label="微信二维码" title="微信二维码"><i class="fab fa-weixin"></i></button><div class="home-qr"><img src="{{ '/assets/images/wechat-qr.jpg' | relative_url }}" alt="微信二维码"><span>扫码添加我的微信</span></div></div>
+      <div class="home-contact-popover"><button type="button" aria-label="微信公众号二维码" title="微信公众号二维码"><i class="fas fa-newspaper"></i></button><div class="home-qr"><img src="{{ '/assets/images/wechat-official-qr.jpg' | relative_url }}" alt="微信公众号二维码"><span>扫码关注我的公众号</span></div></div>
+    </div>
+  </div>
+</section>
 
-<!-- 首页欢迎语 -->
-<div class="intro-text mb-10">
-  <h1 class="text-3xl font-bold text-gray-900">欢迎来到我的学术博客</h1>
-  <p class="mt-4 text-lg text-gray-600">
-    这里记录我的研究进展、论文解读和学习笔记，欢迎交流！
-  </p>
-</div>
-
-<!-- 最新文章列表（主题自带的循环逻辑，无需手动写 CSS） -->
-<h2 class="text-2xl font-semibold mb-6">最新文章</h2>
-{% if site.posts.size > 0 %}
-  {% for post in site.posts limit: 5 %}  <!-- 显示最新 5 篇文章 -->
-    <article class="mb-8">
-      <!-- 文章标题 + 链接 -->
-      <h3 class="text-xl font-medium">
-        <a href="{{ post.url | relative_url }}" class="text-blue-600 hover:text-blue-800">
-          {{ post.title }}
-        </a>
-      </h3>
-      <!-- 文章日期、分类、阅读时间 -->
-      <div class="text-sm text-gray-500 mt-2">
-        {{ post.date | date: "%Y年%m月%d日" }} · 
-        <span class="category">{{ post.category }}</span> · 
-        阅读时间：{{ post.read_time | default: 5 }} 分钟
-      </div>
-      <!-- 文章摘要 -->
-      <div class="mt-3 text-gray-700">
-        {{ post.excerpt | strip_html | truncate: 200 }}  <!-- 截取 200 字摘要 -->
-      </div>
-      <!-- 「阅读全文」按钮 -->
-      <a href="{{ post.url | relative_url }}" class="mt-2 inline-block text-blue-600 hover:underline">
-        阅读全文 →
-      </a>
-    </article>
-  {% endfor %}
-{% else %}
-  <!-- 没有文章时的提示 -->
-  <p class="text-gray-500">暂无文章，快去 _posts 目录创建第一篇吧！</p>
-{% endif %}
+<section class="home-below section-wrap" aria-labelledby="home-notes-title">
+  <div class="home-below-heading"><div><p class="eyebrow">Field notes</p><h2 id="home-notes-title">Latest writing</h2></div><a class="text-link" href="{{ '/blog/' | relative_url }}">All posts <i class="fas fa-arrow-right"></i></a></div>
+  <div class="latest-list glass-card">
+    {% for post in site.posts limit: 3 %}
+    <article class="latest-item"><time datetime="{{ post.date | date_to_xmlschema }}"><span>{{ post.date | date: '%d' }}</span>{{ post.date | date: '%b %Y' }}</time><div><p class="post-kicker">{{ post.categories | first | default: 'Notes' }}</p><h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3><p>{{ post.excerpt | strip_html | truncate: 125 }}</p></div><a class="round-link" href="{{ post.url | relative_url }}" aria-label="阅读 {{ post.title }}"><i class="fas fa-arrow-right"></i></a></article>
+    {% endfor %}
+  </div>
+</section>
