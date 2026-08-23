@@ -7,8 +7,8 @@ body_class: cv-page
 
 <article class="cv-sheet section-wrap">
   <header class="cv-header">
-    <div><p class="eyebrow">Curriculum Vitae</p><h1>[Your Full Name]</h1><p class="cv-title">[Your Academic Title / Role]</p><p class="cv-summary">[Write a concise 2–3 sentence professional profile describing your research focus, technical strengths, and current direction.]</p></div>
-    <address><a href="mailto:[your.email@example.com]">[your.email@example.com]</a><span>[City, Country]</span><a href="[Personal Website URL]">[Personal Website]</a><a href="[GitHub / Scholar URL]">[GitHub / Google Scholar]</a></address>
+    <div><p class="eyebrow">Curriculum Vitae</p><h1>Jiaming Yang</h1><p class="cv-title">Undergraduate</p><p class="cv-summary">Partido a Partido</p></div>
+    <address><a href="mailto:[your.email@example.com]">[3922909893@qq.com]</a><span>[Beijing, China]</span><a href="[Personal Website URL]">[j-am-ack.github.io]</a><a href="[GitHub]">(https://github.com/J-am-ack)</a></address>
   </header>
 
   <div class="cv-grid">

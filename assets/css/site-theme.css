@@ -377,6 +377,8 @@ body.site-shell::before {
 .home-mobile-break { display: none; }
 .home-role { margin-top: 13px !important; color: #28545a; font-size: clamp(.83rem,1.5vw,1rem); font-weight: 700; }
 .home-description { max-width: 900px; margin: 25px auto 0; color: #263b41; font-size: clamp(.94rem,1.55vw,1.18rem); line-height: 1.95; overflow-wrap: anywhere; text-shadow: 0 1px 8px rgba(255,255,255,.65); }
+.home-description a { color: #1f6661; font-weight: 600; text-decoration-line: underline; text-decoration-color: rgba(31,102,97,.45); text-decoration-thickness: 1px; text-underline-offset: 4px; transition: color .2s ease, text-decoration-color .2s ease; }
+.home-description a:hover { color: #123f3c; text-decoration-color: currentColor; }
 .home-actions { display: flex; gap: 11px; margin-top: 28px; justify-content: center; flex-wrap: wrap; }
 .home-action-primary,.home-action-secondary { display: inline-flex; min-height: 42px; padding: 0 19px; gap: 8px; align-items: center; border-radius: 99px; font-size: .78rem; font-weight: 700; transition: .2s ease; }
 .home-action-primary { color: #fff !important; background: #286e69; box-shadow: 0 8px 22px rgba(34,101,96,.2); }

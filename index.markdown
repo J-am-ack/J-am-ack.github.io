@@ -9,7 +9,22 @@ title: Jamming Y's Site
     <p class="home-kicker">Welcome to my world</p>
     <h1 id="home-title">Jamming.Y’s<span class="home-title-space"> </span><br class="home-mobile-break">Site</h1>
     <p class="home-role">{{ site.role }}<span aria-hidden="true"> · </span>{{ site.affiliation }}</p>
-    <div class="home-description">{{ site.description | newline_to_br }}</div>
+    <div class="home-description">
+      Welcome to Jamming.Y's world!<br>
+      I'm an undergraduate student majoring in Information and Computing Science at
+      <a href="https://eecs.pku.edu.cn/" target="_blank" rel="noopener noreferrer">EECS</a>,
+      <a href="https://english.pku.edu.cn/" target="_blank" rel="noopener noreferrer">PKU</a>.<br>
+      My research interest now especially lies in Computer Vision.<br>
+      It is my great fortune to work as an undergraduate intern at the
+      <a href="http://www.wict.pku.edu.cn/struct/" target="_blank" rel="noopener noreferrer">Spatial and Temporal Restoration, Understanding and Compression Team (STRUCT)</a>
+      of
+      <a href="https://www.wict.pku.edu.cn/" target="_blank" rel="noopener noreferrer">Wangxuan Institute of Computer Technology (WICT)</a>,
+      mentored by
+      <a href="http://39.96.165.147/people/liujiaying.html" target="_blank" rel="noopener noreferrer">Prof. Jiaying Liu</a>.<br>
+      Much more hobbies and interests about me could be found in the
+      <a href="{{ '/about/' | relative_url }}">About</a> section.<br>
+      I'm looking forward to sharing my thoughts and experiences with you!
+    </div>
     <div class="home-actions">
       <a class="home-action-primary" href="{{ '/blog/' | relative_url }}">Read my notes <i class="fas fa-arrow-right"></i></a>
       <a class="home-action-secondary" href="{{ '/about/' | relative_url }}">More about me</a>
